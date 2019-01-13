@@ -1,0 +1,73 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 8e2114d36f4dc77018c82ff1dade97581e588fd5e97f3a03db86a1484664b9ca
+
+name:           exosphere
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/exosphere#readme>
+homepage:       https://github.com/githubuser/exosphere#readme
+bug-reports:    https://github.com/githubuser/exosphere/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2019 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/exosphere
+
+library
+  exposed-modules:
+      AST
+      CFError
+      Grammar
+      Lexer
+      Parser
+  other-modules:
+      Paths_exosphere
+  hs-source-dirs:
+      src
+  ghc-options: -Wall
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , parsec
+    , split
+  default-language: Haskell2010
+
+executable exosphere
+  main-is: Main.hs
+  other-modules:
+      Paths_exosphere
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
+  build-depends:
+      base >=4.7 && <5
+    , exosphere
+  default-language: Haskell2010
+
+test-suite exosphere-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      LexerSpec
+      ParserSpec
+      Paths_exosphere
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
+  build-depends:
+      base >=4.7 && <5
+    , exosphere
+    , hspec
+  default-language: Haskell2010
