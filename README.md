@@ -1,5 +1,7 @@
 # Exosphere
 
+[![Build Status](https://travis-ci.com/exosphere-lang/compiler.svg?branch=master)](https://travis-ci.com/exosphere-lang/compiler)
+
 A high level CloudFormation language and compiler.
 
 > The exosphere is the uppermost region of Earth's atmosphere as it gradually fades into the vacuum of space.
