@@ -27,6 +27,10 @@ Output `explore-github-artifacts.json`
 }
 ```
 
+## Stability
+
+The Exosphere grammar is still subject to change, using Exosphere in production isn't recomended at this time.
+
 ## Examples
 
 Examples can be found at [exosphere-lang/examples](https://github.com/exosphere-lang/examples). All example source code can be compiled into valid CloudFormation JSON.
@@ -34,3 +38,7 @@ Examples can be found at [exosphere-lang/examples](https://github.com/exosphere-
 ## Grammar
 
 You can find the formal grammar for Exosphere [here](https://github.com/exosphere-lang/grammar)
+
+## Contributing
+
+Contributions are considered, please raise a pull request or an issue.
