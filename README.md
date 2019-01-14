@@ -27,6 +27,10 @@ Output `explore-github-artifacts.json`
 }
 ```
 
+## Examples
+
+Examples can be found at [exosphere-lang/examples](https://github.com/exosphere-lang/examples). All example source code can be compiled into valid CloudFormation JSON.
+
 ## Grammar
 
 You can find the formal grammar for Exosphere [here](https://github.com/exosphere-lang/grammar)
