@@ -1,4 +1,4 @@
-# Exosphere
+# The Exosphere compiler
 
 [![Build Status](https://travis-ci.com/exosphere-lang/compiler.svg?branch=master)](https://travis-ci.com/exosphere-lang/compiler)
 
