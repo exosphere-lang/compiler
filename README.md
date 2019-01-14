@@ -37,7 +37,7 @@ Examples can be found at [exosphere-lang/examples](https://github.com/exosphere-
 
 ## Grammar
 
-You can find the formal grammar for Exosphere [here](https://github.com/exosphere-lang/grammar)
+You can find the formal grammar for Exosphere at [exosphere-lang/grammar](https://github.com/exosphere-lang/grammar).
 
 ## Contributing
 
