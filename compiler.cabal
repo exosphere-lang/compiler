@@ -4,17 +4,16 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8e2114d36f4dc77018c82ff1dade97581e588fd5e97f3a03db86a1484664b9ca
+-- hash: 4bb319038f966f6a455277df4fdb5eff9a9d56d50d4f5c92b914fc5cf4d7f6a2
 
-name:           exosphere
+name:           compiler
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/githubuser/exosphere#readme>
-homepage:       https://github.com/githubuser/exosphere#readme
-bug-reports:    https://github.com/githubuser/exosphere/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2019 Author name here
-license:        BSD3
+description:    Please see the README on GitHub at <https://github.com/exosphere/compiler#readme>
+homepage:       https://github.com/exosphere-lang/compiler#readme
+bug-reports:    https://github.com/exosphere-lang/compiler/issues
+author:         Chris Bacon & Jacob Clark
+copyright:      2019 Chris Bacon & Jacob Clark
+license:        MIT
 license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
@@ -23,7 +22,7 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/exosphere
+  location: https://github.com/exosphere-lang/compiler
 
 library
   exposed-modules:
@@ -33,7 +32,7 @@ library
       Lexer
       Parser
   other-modules:
-      Paths_exosphere
+      Paths_compiler
   hs-source-dirs:
       src
   ghc-options: -Wall
@@ -44,16 +43,16 @@ library
     , split
   default-language: Haskell2010
 
-executable exosphere
+executable compiler
   main-is: Main.hs
   other-modules:
-      Paths_exosphere
+      Paths_compiler
   hs-source-dirs:
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
   build-depends:
       base >=4.7 && <5
-    , exosphere
+    , compiler
   default-language: Haskell2010
 
 test-suite exosphere-test
@@ -62,12 +61,12 @@ test-suite exosphere-test
   other-modules:
       LexerSpec
       ParserSpec
-      Paths_exosphere
+      Paths_compiler
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
   build-depends:
       base >=4.7 && <5
-    , exosphere
+    , compiler
     , hspec
   default-language: Haskell2010

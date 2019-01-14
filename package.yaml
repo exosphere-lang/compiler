@@ -31,7 +31,7 @@ library:
     - containers
 
 executables:
-  exosphere:
+  compiler:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -40,7 +40,7 @@ executables:
     - -with-rtsopts=-N
     - -Wall
     dependencies:
-    - exosphere
+    - compiler
 
 tests:
   exosphere-test:
@@ -52,5 +52,5 @@ tests:
     - -with-rtsopts=-N
     - -Wall
     dependencies:
-    - exosphere
+    - compiler
     - hspec
