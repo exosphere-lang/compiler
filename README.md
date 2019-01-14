@@ -29,4 +29,4 @@ Output `explore-github-artifacts.json`
 
 ## Grammar
 
-You can find the grammar for exosphere [here](https://github.com/exosphere-lang/grammar)
+You can find the formal grammar for Exosphere [here](https://github.com/exosphere-lang/grammar)
