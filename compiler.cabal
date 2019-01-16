@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 42a5b2209ba1a771690369ad7397ab59bcb104e58d44ea7f942ac7a89cbefe2f
+-- hash: 503655f59766d7a873d0653abcce1e79ecce3a5e43014d43bead46d1efd3e898
 
 name:           compiler
 version:        0.1.0.0
@@ -28,9 +28,11 @@ library
   exposed-modules:
       AST
       Grammar
-      Lexer
+      Lexer.Keywords
+      Lexer.Lexer
       ParseErrors
-      Parser
+      Parser.Parse
+      Parser.SyntacticAnalysis
   other-modules:
       Paths_compiler
   hs-source-dirs:
@@ -60,7 +62,7 @@ test-suite exosphere-test
   main-is: Spec.hs
   other-modules:
       LexerSpec
-      ParserSpec
+      Parser.SyntacticAnalysisSpec
       Paths_compiler
   hs-source-dirs:
       test
