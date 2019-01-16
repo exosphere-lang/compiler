@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b1618f5fd5c7e81a077542e6faa9c1994dd116b03ae8e248bc8b8912922e7c91
+-- hash: ad6be3371386b4d132a3c5f34aec6487a833a20350a12d4e020bdaee9238e40a
 
 name:           compiler
 version:        0.1.0.0
@@ -26,7 +26,6 @@ source-repository head
 
 library
   exposed-modules:
-      AST
       Lexer.Grammar
       Lexer.Keywords
       Lexer.Lexer
@@ -41,7 +40,8 @@ library
       src
   ghc-options: -Wall
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , base >=4.7 && <5
     , containers
     , parsec
     , split

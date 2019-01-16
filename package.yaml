@@ -29,6 +29,7 @@ library:
     - parsec
     - split
     - containers
+    - aeson
 
 executables:
   compiler:
