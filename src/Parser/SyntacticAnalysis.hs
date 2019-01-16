@@ -12,8 +12,6 @@ analyseLexedTokens :: [Token] -> Either ParseErrors AST.Resource
 analyseLexedTokens (Word resourceName:Keyword serviceType:_) =  Right $ AST.Resource resourceName serviceType
 analyseLexedTokens tokens = Left $ handleInvalidSyntax tokens
 
-
-
 handleInvalidSyntax :: [Token] -> ParseErrors
 handleInvalidSyntax [] = EmptyProgram
 handleInvalidSyntax (Word _:[]) = InvalidResource "No resource type specified"
