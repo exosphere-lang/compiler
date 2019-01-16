@@ -9,11 +9,11 @@ analyse :: Program -> Either [ParseError] AST
 analyse (Program []) = Left [EmptyProgram]
 analyse program = do
     let analysedResources = analyseLexedTokens <$> getTokensToAnalyse program
-    let errors = lefts analysedResources
+    let errors            = lefts analysedResources
 
     case errors of
         ([]) -> Right $ AST (rights analysedResources)
-        _  -> Left $ errors
+        _    -> Left $ errors
 
 getTokensToAnalyse :: Program -> [[Token]]
 getTokensToAnalyse program = map getResourceTokens $ getProgramResources $ program
@@ -23,8 +23,8 @@ analyseLexedTokens (Word resourceName:Keyword serviceType:_) =  Right $ Resource
 analyseLexedTokens tokens = Left $ handleInvalidSyntax tokens 
 
 handleInvalidSyntax :: [Token] -> ParseError
-handleInvalidSyntax [] = EmptyProgram
-handleInvalidSyntax (Word _:[]) = NoResourceTypeSpecified
-handleInvalidSyntax (Keyword _:_) = ResourceTypeShouldComeAfterResourceName
+handleInvalidSyntax []                 = EmptyProgram
+handleInvalidSyntax (Word _:[])        = NoResourceTypeSpecified
+handleInvalidSyntax (Keyword _:_)      = ResourceTypeShouldComeAfterResourceName
 handleInvalidSyntax (Word _: Word _:_) = ResourceNameShouldComeBeforeResourceType
-handleInvalidSyntax (_) = FatalError
+handleInvalidSyntax (_)                = FatalError
