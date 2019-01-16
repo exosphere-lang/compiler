@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4bb319038f966f6a455277df4fdb5eff9a9d56d50d4f5c92b914fc5cf4d7f6a2
+-- hash: 42a5b2209ba1a771690369ad7397ab59bcb104e58d44ea7f942ac7a89cbefe2f
 
 name:           compiler
 version:        0.1.0.0
@@ -27,9 +27,9 @@ source-repository head
 library
   exposed-modules:
       AST
-      CFError
       Grammar
       Lexer
+      ParseErrors
       Parser
   other-modules:
       Paths_compiler

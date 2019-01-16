@@ -1,6 +1,7 @@
-module CFError where
+module ParseErrors where
 
-data CFError 
+data ParseErrors 
   = InvalidSyntax String 
   | InvalidResource String
+  | EmptyProgram
   deriving (Eq, Show)
