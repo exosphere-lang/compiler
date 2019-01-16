@@ -8,12 +8,15 @@ import Data.Either
 analyse :: Program -> Either [ParseError] AST
 analyse (Program []) = Left [EmptyProgram]
 analyse program = do
-    let analysedTokens = map analyseLexedTokens $ map getTokens $ getResources $ program
-    let errors = lefts analysedTokens
+    let analysedResources = analyseLexedTokens <$> getTokensToAnalyse program
+    let errors = lefts analysedResources
 
     case errors of
-        ([]) -> Right $ AST (rights analysedTokens)
+        ([]) -> Right $ AST (rights analysedResources)
         _  -> Left $ errors
+
+getTokensToAnalyse :: Program -> [[Token]]
+getTokensToAnalyse program = map getResourceTokens $ getProgramResources $ program
 
 analyseLexedTokens :: [Token] -> Either ParseError Resource
 analyseLexedTokens (Word resourceName:Keyword serviceType:_) =  Right $ Resource resourceName serviceType
