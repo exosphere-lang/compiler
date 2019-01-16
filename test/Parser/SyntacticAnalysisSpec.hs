@@ -2,7 +2,7 @@ module Parser.SyntacticAnalysisSpec (spec) where
 
 import Test.Hspec
 import ParseErrors
-import Grammar
+import Lexer.Grammar
 import qualified AST as AST
 import Parser.SyntacticAnalysis
 import ServiceType (ServiceType(..))
@@ -18,7 +18,6 @@ spec =
     let Left err   = result !! 0
     err `shouldBe` expectedResponse
   
-
   it "returns a No program found InvalidSyntax error when given an empty program" $ do
     let expectedError = InvalidResource "No resource type specified"
 

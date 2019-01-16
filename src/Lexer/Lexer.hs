@@ -4,7 +4,7 @@ import Prelude         hiding (lookup)
 import Data.List.Split (splitOn)
 import Data.Maybe      (fromMaybe)
 import Data.Map        (lookup)
-import Grammar
+import Lexer.Grammar
 import Lexer.Keywords
 
 lexe :: String -> Program

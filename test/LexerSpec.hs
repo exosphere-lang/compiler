@@ -2,7 +2,7 @@ module LexerSpec (spec) where
 
 import Lexer.Lexer
 import Test.Hspec
-import Grammar
+import Lexer.Grammar
 import ServiceType (ServiceType(..))
 
 spec :: Spec
