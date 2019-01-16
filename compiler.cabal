@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 cabal-version: 1.12
 
 -- This file has been generated from package.yaml by hpack version 0.31.1.
@@ -5,6 +6,13 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 --
 -- hash: 4c9eb52148ef220595ec5cb10e947ce8cddfd23f0b2758300241329c3df0a54e
+=======
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 423a15bd232f00ba3a6eda7b5febdb44120a99f93e8b73140ca8f4119487552e
+>>>>>>> 88aa38dc4097f722c089950b4b03cb8ca48a9eba
 
 name:           compiler
 version:        0.1.0.0
@@ -16,9 +24,16 @@ copyright:      2019 Chris Bacon & Jacob Clark
 license:        MIT
 license-file:   LICENSE
 build-type:     Simple
+<<<<<<< HEAD
 extra-source-files:
     README.md
     ChangeLog.md
+=======
+cabal-version:  >= 1.10
+extra-source-files:
+    ChangeLog.md
+    README.md
+>>>>>>> 88aa38dc4097f722c089950b4b03cb8ca48a9eba
 
 source-repository head
   type: git
@@ -26,12 +41,21 @@ source-repository head
 
 library
   exposed-modules:
+<<<<<<< HEAD
       AST
       Lexer.Grammar
       Lexer.Keywords
       Lexer.Lexer
       Parser.Errors
       Parser.Parse
+=======
+      Lexer.Grammar
+      Lexer.Keywords
+      Lexer.Lexer
+      Parser.AST
+      Parser.Parse
+      Parser.ParseError.Errors
+>>>>>>> 88aa38dc4097f722c089950b4b03cb8ca48a9eba
       Parser.SyntacticAnalysis
       ServiceType
   other-modules:
@@ -62,7 +86,12 @@ test-suite exosphere-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+<<<<<<< HEAD
       LexerSpec
+=======
+      CodeGen.GenerateSpec
+      Lexer.LexerSpec
+>>>>>>> 88aa38dc4097f722c089950b4b03cb8ca48a9eba
       Parser.SyntacticAnalysisSpec
       Paths_compiler
   hs-source-dirs:

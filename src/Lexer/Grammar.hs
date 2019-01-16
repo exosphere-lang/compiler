@@ -2,10 +2,10 @@ module Lexer.Grammar where
 
 import ServiceType (ServiceType)
 
-data Program  = Program  { getResources :: [Resource] } 
+data Program  = Program  { getProgramResources :: [Resource] } 
   deriving (Eq, Show)
 
-data Resource = Resource { getTokens :: [Token] } 
+data Resource = Resource { getResourceTokens :: [Token] } 
   deriving (Eq, Show)
 
 data Token
