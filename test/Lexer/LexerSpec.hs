@@ -1,4 +1,4 @@
-module LexerSpec (spec) where
+module Lexer.LexerSpec (spec) where
 
 import Lexer.Lexer
 import Test.Hspec

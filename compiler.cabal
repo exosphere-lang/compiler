@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f541fefff1c71412a104ab4a54870cf1c3cf7d2d32c592bad012d829cb57401f
+-- hash: 423a15bd232f00ba3a6eda7b5febdb44120a99f93e8b73140ca8f4119487552e
 
 name:           compiler
 version:        0.1.0.0
@@ -61,7 +61,8 @@ test-suite exosphere-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      LexerSpec
+      CodeGen.GenerateSpec
+      Lexer.LexerSpec
       Parser.SyntacticAnalysisSpec
       Paths_compiler
   hs-source-dirs:
