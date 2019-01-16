@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 02a4bcdab9b1cd33198f079acf65d54d62198af3d609a8e21ff0e25bce82bf7c
+-- hash: e2108940da9b6adcc3b1d72b274166b0250839944e43380b1a1514c7492365a7
 
 name:           compiler
 version:        0.1.0.0
@@ -27,7 +27,7 @@ source-repository head
 library
   exposed-modules:
       AST
-      Grammar
+      Lexer.Grammar
       Lexer.Keywords
       Lexer.Lexer
       ParseErrors
