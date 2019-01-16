@@ -1,10 +1,11 @@
-module Lexer where
+module Lexer.Lexer where
 
 import Prelude         hiding (lookup)
 import Data.List.Split (splitOn)
 import Data.Maybe      (fromMaybe)
-import Data.Map        hiding (map)
+import Data.Map        (lookup)
 import Grammar
+import Lexer.Keywords
 
 lexe :: String -> Program
 lexe input = matchInputToProgram $  inputs
@@ -30,7 +31,3 @@ matchInputToToken input = do
 orElse :: Maybe a -> a -> a
 orElse = flip fromMaybe
 
-keywords :: Map String Token
-keywords = fromList 
-  [ ("S3", Keyword S3)
-  ]

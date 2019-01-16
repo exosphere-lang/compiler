@@ -1,11 +1,11 @@
 module LexerSpec (spec) where
 
-import Lexer
+import Lexer.Lexer
 import Test.Hspec
 import Grammar
 
 spec :: Spec
-spec = do
+spec =
   describe "Lexer" $ do
     it "returns empty program if empty string is provided" $ do
       let expectedResult = Program [ Resource [ Word "" ] ]
