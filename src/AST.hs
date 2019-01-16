@@ -1,8 +1,8 @@
 module AST where
 
-import qualified Grammar as Grammar
+import ServiceType (ServiceType)
 
-data CFTree    = CFTree [Resource] deriving (Eq, Show)
-data Resource  = Resource ResourceName Grammar.ServiceType deriving (Eq, Show)
+data AST      = AST [Resource] deriving (Eq, Show)
+data Resource = Resource ResourceName ServiceType deriving (Eq, Show)
 
 type ResourceName = String

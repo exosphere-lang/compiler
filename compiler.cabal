@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 503655f59766d7a873d0653abcce1e79ecce3a5e43014d43bead46d1efd3e898
+-- hash: 02a4bcdab9b1cd33198f079acf65d54d62198af3d609a8e21ff0e25bce82bf7c
 
 name:           compiler
 version:        0.1.0.0
@@ -33,6 +33,7 @@ library
       ParseErrors
       Parser.Parse
       Parser.SyntacticAnalysis
+      ServiceType
   other-modules:
       Paths_compiler
   hs-source-dirs:

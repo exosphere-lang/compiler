@@ -5,6 +5,7 @@ import ParseErrors
 import Grammar
 import qualified AST as AST
 import Parser.SyntacticAnalysis
+import ServiceType (ServiceType(..))
 
 spec :: Spec
 spec =
