@@ -1,4 +1,4 @@
-module ParseErrors where
+module Parser.Errors where
 
 data ParseErrors 
   = InvalidSyntax String 

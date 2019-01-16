@@ -1,7 +1,7 @@
 module Parser.SyntacticAnalysisSpec (spec) where
 
 import Test.Hspec
-import ParseErrors
+import Parser.Errors
 import Lexer.Grammar
 import qualified AST as AST
 import Parser.SyntacticAnalysis
