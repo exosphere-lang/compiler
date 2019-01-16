@@ -1,7 +1,7 @@
 module Parser.SyntacticAnalysis where
 
 import qualified AST as AST
-import ParseErrors
+import Parser.Errors
 import Lexer.Grammar
 
 analyse :: Program -> [Either ParseErrors AST.Resource]
