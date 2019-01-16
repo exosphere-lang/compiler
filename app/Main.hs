@@ -1,9 +1,11 @@
 module Main where
 
 import Lexer.Lexer
-import Parser.Parse (parse)
+import Parser.Parse       (parse)
+import System.Environment (getArgs)
 
 main :: IO ()
 main = do
-    fileContents <- readFile "/home/chrisb/exosphere/examples/S3/MinimalS3Bucket.exo"
+    (file:_) <- getArgs
+    fileContents <- readFile file
     print $ (parse . lexe) $ fileContents
