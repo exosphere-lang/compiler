@@ -1,4 +1,4 @@
-module AST where
+module Parser.AST where
 
 import ServiceType (ServiceType)
 

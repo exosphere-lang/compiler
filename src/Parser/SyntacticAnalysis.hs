@@ -1,19 +1,27 @@
 module Parser.SyntacticAnalysis where
 
-import qualified AST as AST
-import Parser.Errors
-import Lexer.Grammar
+import Parser.AST
+import Parser.ParseError.Errors
+import Lexer.Grammar hiding (Resource)
+import Data.Either
 
-analyse :: Program -> [Either ParseErrors AST.Resource]
-analyse (Program []) = [Left EmptyProgram]
-analyse p = map analyseLexedTokens $ map getTokens $ getResources $ p
+analyse :: Program -> Either [ParseError] AST
+analyse (Program []) = Left [EmptyProgram]
+analyse program = do
+    let analysedTokens = map analyseLexedTokens $ map getTokens $ getResources $ program
+    let errors = lefts analysedTokens
 
-analyseLexedTokens :: [Token] -> Either ParseErrors AST.Resource
-analyseLexedTokens (Word resourceName:Keyword serviceType:_) =  Right $ AST.Resource resourceName serviceType
-analyseLexedTokens tokens = Left $ handleInvalidSyntax tokens
+    case errors of
+        ([]) -> Right $ AST (rights analysedTokens)
+        _  -> Left $ errors
 
-handleInvalidSyntax :: [Token] -> ParseErrors
+analyseLexedTokens :: [Token] -> Either ParseError Resource
+analyseLexedTokens (Word resourceName:Keyword serviceType:_) =  Right $ Resource resourceName serviceType
+analyseLexedTokens tokens = Left $ handleInvalidSyntax tokens 
+
+handleInvalidSyntax :: [Token] -> ParseError
 handleInvalidSyntax [] = EmptyProgram
-handleInvalidSyntax (Word _:[]) = InvalidResource "No resource type specified"
-handleInvalidSyntax (Keyword _:_) = InvalidResource "Resource type should come after resource name"
-handleInvalidSyntax (Word _: Word _:_) = InvalidResource "A resource type must be specified following a resource name"
+handleInvalidSyntax (Word _:[]) = NoResourceTypeSpecified
+handleInvalidSyntax (Keyword _:_) = ResourceTypeShouldComeAfterResourceName
+handleInvalidSyntax (Word _: Word _:_) = ResourceNameShouldComeBeforeResourceType
+handleInvalidSyntax (_) = FatalError
