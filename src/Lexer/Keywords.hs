@@ -1,7 +1,8 @@
 module Lexer.Keywords where
 
 import Data.Map
-import Grammar
+import ServiceType (ServiceType(..))
+import Grammar     (Token(..))
 
 keywords :: Map String Token
 keywords = fromList 

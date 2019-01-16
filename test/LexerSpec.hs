@@ -3,6 +3,7 @@ module LexerSpec (spec) where
 import Lexer.Lexer
 import Test.Hspec
 import Grammar
+import ServiceType (ServiceType(..))
 
 spec :: Spec
 spec =
