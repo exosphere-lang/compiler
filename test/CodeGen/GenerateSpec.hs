@@ -1,22 +1,36 @@
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
+
 module CodeGen.GenerateSpec where
 
-import Test.Hspec
+import Data.Aeson
+import Data.Aeson.Types
+import Data.ByteString.Lazy.Char8 hiding (readFile)
+import GHC.Generics
 import Parser.AST
 import ServiceType (ServiceType (..))
+import Test.Hspec
 
-generate :: AST -> String
-generate (AST []) = "{ \"AWSTemplateFormatVersion\": \"2010-09-09\" }"
-generate ast = "{ \"AWSTemplateFormatVersion\": \"2010-09-09\", \"Resources\": { \"MyResource\": { \"Type\": \"AWS::S3::Bucket\" }}}"
+import CodeGen.Generate
 
 spec :: Spec
 spec =
   describe "GenerateSpec" $ do
-    it "returns a root JSON string with an AWSTemplateFormatVersion as a property and no resources" $ do
-        let expectedResult = "{ \"AWSTemplateFormatVersion\": \"2010-09-09\" }"
+    it "returns a CloudFormationTemplate with a valid CloudFormation Format Version" $ do
+      let expectedResponse = CloudFormationTemplate "2010-09-09" [] 
+          inputAST         = AST []
+      
+      generateCloudFormationFromAST inputAST `shouldBe` expectedResponse
 
-        generate (AST []) `shouldBe` expectedResult
+    it "returns a CF template with a list of resources when given an AST with a list of resources" $ do
+      let expectedResponse = CloudFormationTemplate "2010-09-09" [Resource "MyExampleBucket" S3]
+          inputAST         = AST [Resource "MyExampleBucket" S3]
 
-    it "returns a JSON string with a single resource type of S3 and a resource name of MyResource" $ do
-        let expectedResult = "{ \"AWSTemplateFormatVersion\": \"2010-09-09\", \"Resources\": { \"MyResource\": { \"Type\": \"AWS::S3::Bucket\" }}}"
+      generateCloudFormationFromAST inputAST `shouldBe` expectedResponse
 
-        generate (AST [Resource "MyResource" S3]) `shouldBe` expectedResult
+    it "returns a CF template with a list of resources when given an AST with a list of resources" $ do
+      expectedResponse <- readFile "./test/CodeGen/fixtures/TemplateWithNoResources.json"
+      let inputAST = AST []
+
+      unpack (encode (generateCloudFormationFromAST inputAST)) `shouldBe` expectedResponse
+  
