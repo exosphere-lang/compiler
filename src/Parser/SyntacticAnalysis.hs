@@ -12,8 +12,8 @@ analyse program = do
     let errors            = lefts analysedResources
 
     case errors of
-        ([]) -> Right $ AST (rights analysedResources)
-        _    -> Left $ errors
+        [] -> Right $ AST (rights analysedResources)
+        _  -> Left errors
 
 getTokensToAnalyse :: Program -> [[Token]]
 getTokensToAnalyse program = map getResourceTokens $ getProgramResources $ program
@@ -27,4 +27,4 @@ handleInvalidSyntax []                 = EmptyProgram
 handleInvalidSyntax (Word _:[])        = NoResourceTypeSpecified
 handleInvalidSyntax (Keyword _:_)      = ResourceTypeShouldComeAfterResourceName
 handleInvalidSyntax (Word _: Word _:_) = ResourceNameShouldComeBeforeResourceType
-handleInvalidSyntax (_)                = FatalError
+handleInvalidSyntax _                  = FatalError

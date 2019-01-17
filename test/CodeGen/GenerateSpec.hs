@@ -1,17 +1,14 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE DeriveGeneric #-}
 
 module CodeGen.GenerateSpec where
 
-import Data.Aeson
-import Data.Aeson.Types
+import CodeGen.Generate
+import Data.Aeson (encode)
 import Data.ByteString.Lazy.Char8 hiding (readFile)
-import GHC.Generics
 import Parser.AST
 import ServiceType (ServiceType (..))
-import Test.Hspec
 
-import CodeGen.Generate
+import Test.Hspec
 
 spec :: Spec
 spec =
