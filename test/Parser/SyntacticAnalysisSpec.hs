@@ -26,19 +26,19 @@ spec =
       it "returns error when no resource type is specified" $ do
         let expectedError = [NoResourceTypeSpecified]
 
-        let Left result = analyse (Program [Resource [Word "CatPictures"]])
+        let Left result = analyse (Program [Resource [Word "MyExampleBucket"]])
         result `shouldBe` expectedError
 
       it "returns error when resource type does not come after the resource name" $ do
         let expectedError = [ResourceTypeShouldComeAfterResourceName]
 
-        let Left result = analyse (Program [Resource [Keyword S3, Word "CatPictures"]])
+        let Left result = analyse (Program [Resource [Keyword S3, Word "MyExampleBucket"]])
         result `shouldBe` expectedError
 
       it "returns InvalidResource when a keyword is not preceeded by a resource name" $ do
         let expectedResponse = [ResourceNameShouldComeBeforeResourceType]
 
-        let Left result = analyse (Program [Resource [Word "CatPictures", Word "DogPictures"]])
+        let Left result = analyse (Program [Resource [Word "MyExampleBucket", Word "MyOtherExampleBucket"]])
         result `shouldBe` expectedResponse
       
       it "returns InvalidResource when a resource type is followed by a resource type" $ do
@@ -49,8 +49,8 @@ spec =
 
     describe "Succesfull parse" $ do
       it "returns syntax tree for a resource with a name and type" $ do
-        let expectedResponse = AST.AST [AST.Resource "CatPictures" S3]
+        let expectedResponse = AST.AST [AST.Resource "MyExampleBucket" S3]
 
-        let Right result = analyse (Program [Resource [Word "CatPictures", Keyword S3]])
+        let Right result = analyse (Program [Resource [Word "MyExampleBucket", Keyword S3]])
         result `shouldBe` expectedResponse
   

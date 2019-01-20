@@ -8,6 +8,7 @@ library:
   - containers
   - aeson
   - bytestring
+  - text
 tests:
   exosphere-test:
     source-dirs: test
@@ -34,7 +35,7 @@ author: Chris Bacon & Jacob Clark
 github: exosphere-lang/compiler
 license: MIT
 executables:
-  compiler:
+  exospherec:
     source-dirs: app
     main: Main.hs
     ghc-options:
@@ -44,4 +45,6 @@ executables:
     - -Wall
     dependencies:
     - compiler
+    - aeson
+    - bytestring
 description: Please see the README on GitHub at <https://github.com/exosphere/compiler#readme>

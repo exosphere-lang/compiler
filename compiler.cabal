@@ -1,10 +1,8 @@
-cabal-version: 1.12
-
--- This file has been generated from package.yaml by hpack version 0.31.1.
+-- This file has been generated from package.yaml by hpack version 0.28.2.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 290d12dfddf3b8a6bdd44cc3e2ef795c6aafb0c0fbeb0b81f46847652b2f9d20
+-- hash: b2607954a1659e289decba5ee83b68bef2ff278861424b0e742d7636c8b41a9c
 
 name:           compiler
 version:        0.1.0.0
@@ -16,9 +14,10 @@ copyright:      2019 Chris Bacon & Jacob Clark
 license:        MIT
 license-file:   LICENSE
 build-type:     Simple
+cabal-version:  >= 1.10
 extra-source-files:
-    README.md
     ChangeLog.md
+    README.md
 
 source-repository head
   type: git
@@ -47,9 +46,10 @@ library
     , containers
     , parsec
     , split
+    , text
   default-language: Haskell2010
 
-executable compiler
+executable exospherec
   main-is: Main.hs
   other-modules:
       Paths_compiler
@@ -57,7 +57,9 @@ executable compiler
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , base >=4.7 && <5
+    , bytestring
     , compiler
   default-language: Haskell2010
 

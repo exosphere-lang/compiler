@@ -14,10 +14,10 @@ spec =
       let result = lexe ""
       result `shouldBe` expectedResult
 
-    it "returns CatPictures into a Token of Word with literal value CatPictures" $ do
-      let expectedResult = Program [ Resource [ Word "CatPictures"] ]
+    it "returns MyExampleBucket into a Token of Word with literal value MyExampleBucket" $ do
+      let expectedResult = Program [ Resource [ Word "MyExampleBucket"] ]
 
-      let result = lexe "CatPictures"
+      let result = lexe "MyExampleBucket"
       result `shouldBe` expectedResult
 
     it "returns S3 into a Token of ServiceType of S3" $ do
@@ -26,32 +26,32 @@ spec =
         let result = lexe "S3"
         result `shouldBe` expectedResult
 
-    it "returns CatPictures S3 into tokens of Word CatPictures and Keyword S3" $ do
-      let expectedResult = Program [ Resource [Word "CatPictures", Keyword S3] ]
+    it "returns MyExampleBucket S3 into tokens of Word MyExampleBucket and Keyword S3" $ do
+      let expectedResult = Program [ Resource [Word "MyExampleBucket", Keyword S3] ]
 
-      let result = lexe "CatPictures S3"
+      let result = lexe "MyExampleBucket S3"
       result `shouldBe` expectedResult
 
-    it "returns S3 CatPictures into tokens of Keyword S3 and Word CatPictures" $ do
-      let expectedResult = Program [ Resource [Keyword S3, Word "CatPictures"] ]
+    it "returns S3 MyExampleBucket into tokens of Keyword S3 and Word MyExampleBucket" $ do
+      let expectedResult = Program [ Resource [Keyword S3, Word "MyExampleBucket"] ]
 
-      let result = lexe "S3 CatPictures"
+      let result = lexe "S3 MyExampleBucket"
       result `shouldBe` expectedResult
 
     it "returns an arbitary number of Keywords and Words" $ do
-      let expectedResult = Program [ Resource [Keyword S3, Word "CatPictures", Word "DogPictures", Keyword S3 ] ]
+      let expectedResult = Program [ Resource [Keyword S3, Word "MyExampleBucket", Word "MyOtherExampleBucket", Keyword S3 ] ]
 
-      let result = lexe "S3 CatPictures DogPictures S3"
+      let result = lexe "S3 MyExampleBucket MyOtherExampleBucket S3"
       result `shouldBe` expectedResult
 
     it "returns a program with two resources and their respective keyword and word tokens" $ do
-      let expectedResult = Program [ Resource [ Keyword S3, Word "CatPictures" ], Resource [ Keyword S3, Word "DogPictures" ] ]
+      let expectedResult = Program [ Resource [ Keyword S3, Word "MyExampleBucket" ], Resource [ Keyword S3, Word "MyOtherExampleBucket" ] ]
         
-      let result = lexe "S3 CatPictures\nS3 DogPictures"
+      let result = lexe "S3 MyExampleBucket\nS3 MyOtherExampleBucket"
       result `shouldBe` expectedResult
 
     it "returns a program with a single resources and its respective keyword and word tokens when the input has a trailing carriage return" $ do
-      let expectedResult = Program [ Resource [ Keyword S3, Word "CatPictures" ] ]
+      let expectedResult = Program [ Resource [ Keyword S3, Word "MyExampleBucket" ] ]
         
-      let result = lexe "S3 CatPictures\n"
+      let result = lexe "S3 MyExampleBucket\n"
       result `shouldBe` expectedResult

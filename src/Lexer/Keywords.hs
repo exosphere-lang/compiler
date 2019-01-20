@@ -6,5 +6,6 @@ import Lexer.Grammar     (Token(..))
 
 keywords :: Map String Token
 keywords = fromList 
-  [ ("S3", Keyword S3)
+  [ 
+    ("S3", Keyword S3)
   ]

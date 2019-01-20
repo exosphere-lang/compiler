@@ -30,4 +30,3 @@ matchInputToToken input = do
 
 orElse :: Maybe a -> a -> a
 orElse = flip fromMaybe
-

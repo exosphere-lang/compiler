@@ -8,24 +8,44 @@ A high level AWS CloudFormation language and compiler.
 
 The goal of Exosphere is to simplify the creation of Amazon Web Service CloudFormation templates and create useful compile-time feedback to the user. Exosphere is capable of turning `exo` files into CloudFormation templates, `exo` files are parsed and checked to ensure any generated CloudFormation is valid.
 
-Input `ExploreGitHubArtifacts.exo`:
+## Getting started
+
+Build Exosphere from source:
+
+```shell
+$ git clone git@github.com:exosphere-lang/compiler.git && cd compiler
+$ stack build --copy-bins
+```
+
+Ensure that the executable generate from stack build is in your `$PATH`.
+
+Create a valid Exosphere file such as `ExosphereBucket.exo`:
 
 ```
-ExploreGithubArtifacts S3
+ExosphereBucket S3
 ```
 
-Output `explore-github-artifacts.json`
+Run `exospherec` on the input file:
+
+```shell
+$ exospherec ./ExosphereBucket.exo
+```
+
+Inspect the generated CloudFormation template `ExosphereBucket.exo.json`
 
 ```json
+$ cat ./ExosphereBucket.json
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Resources": {
-        "ExploreGithubArtifacts": {
+        "ExosphereBucket": {
             "Type": "AWS::S3::Bucket",
         }
     }
 }
 ```
+
+Finally, upload to AWS CloudFormation and create your stack!
 
 ## Stability
 
