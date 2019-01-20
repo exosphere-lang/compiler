@@ -34,7 +34,7 @@ $ exospherec ./ExosphereBucket.exo
 Inspect the generated CloudFormation template `ExosphereBucket.exo.json`
 
 ```json
-$ cat ./ExosphereBucket.json
+$ cat ./ExosphereBucket.exo.json
 {
     "AWSTemplateFormatVersion": "2010-09-09",
     "Resources": {
