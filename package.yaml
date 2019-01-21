@@ -9,6 +9,10 @@ extra-source-files:
 - ChangeLog.md
 description: Please see the README on GitHub at <https://github.com/exosphere/compiler#readme>
 
+dependencies:
+- aeson
+- bytestring
+
 executables:
   exospherec:
     source-dirs: app
@@ -20,8 +24,6 @@ executables:
     - -Wall
     dependencies:
     - compiler
-    - aeson
-    - bytestring
 
 library:
   source-dirs: src
@@ -31,9 +33,8 @@ library:
   - parsec
   - split
   - containers
-  - aeson
-  - bytestring
   - text
+
 tests:
   exosphere-test:
     source-dirs: test
@@ -44,8 +45,5 @@ tests:
     - -with-rtsopts=-N
     - -Wall
     dependencies:
-    - bytestring
     - compiler
     - hspec
-    - aeson
- 
