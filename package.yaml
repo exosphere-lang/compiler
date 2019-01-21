@@ -1,3 +1,28 @@
+name: compiler
+author: Chris Bacon & Jacob Clark
+github: exosphere-lang/compiler
+license: MIT
+copyright: 2019 Chris Bacon & Jacob Clark
+version: 0.1.0.0
+extra-source-files:
+- README.md
+- ChangeLog.md
+description: Please see the README on GitHub at <https://github.com/exosphere/compiler#readme>
+
+executables:
+  exospherec:
+    source-dirs: app
+    main: Main.hs
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -Wall
+    dependencies:
+    - compiler
+    - aeson
+    - bytestring
+
 library:
   source-dirs: src
   ghc-options:
@@ -23,28 +48,4 @@ tests:
     - compiler
     - hspec
     - aeson
-copyright: 2019 Chris Bacon & Jacob Clark
-dependencies:
-- base >= 4.7 && < 5
-name: compiler
-version: 0.1.0.0
-extra-source-files:
-- README.md
-- ChangeLog.md
-author: Chris Bacon & Jacob Clark
-github: exosphere-lang/compiler
-license: MIT
-executables:
-  exospherec:
-    source-dirs: app
-    main: Main.hs
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    - -Wall
-    dependencies:
-    - compiler
-    - aeson
-    - bytestring
-description: Please see the README on GitHub at <https://github.com/exosphere/compiler#readme>
+ 
