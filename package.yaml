@@ -14,6 +14,10 @@ dependencies:
 - aeson
 - bytestring
 
+ghc-optons:
+- -Wincomplete-patterns
+- -Wall
+
 executables:
   exospherec:
     source-dirs: app
@@ -22,15 +26,11 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
-    - -Wall
     dependencies:
     - compiler
 
 library:
   source-dirs: src
-  ghc-options:
-  - -Wall
-  - -Wno-incomplete-patterns
   dependencies:
   - parsec
   - split
@@ -46,8 +46,6 @@ tests:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
-    - -Wall
-    - -Wno-incomplete-patterns
     dependencies:
     - compiler
     - hspec
