@@ -10,6 +10,7 @@ extra-source-files:
 description: Please see the README on GitHub at <https://github.com/exosphere/compiler#readme>
 
 dependencies:
+- base
 - aeson
 - bytestring
 
@@ -29,11 +30,13 @@ library:
   source-dirs: src
   ghc-options:
   - -Wall
+  - -Wno-incomplete-patterns
   dependencies:
   - parsec
   - split
   - containers
   - text
+  - unordered-containers
 
 tests:
   exosphere-test:
@@ -44,6 +47,7 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     - -Wall
+    - -Wno-incomplete-patterns
     dependencies:
     - compiler
     - hspec

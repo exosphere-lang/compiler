@@ -1,8 +1,10 @@
--- This file has been generated from package.yaml by hpack version 0.28.2.
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b2607954a1659e289decba5ee83b68bef2ff278861424b0e742d7636c8b41a9c
+-- hash: 17dea09af57fca48a643f2d3d5cd906226fa2eab58e1007f0c7d3c601443b3ce
 
 name:           compiler
 version:        0.1.0.0
@@ -14,10 +16,9 @@ copyright:      2019 Chris Bacon & Jacob Clark
 license:        MIT
 license-file:   LICENSE
 build-type:     Simple
-cabal-version:  >= 1.10
 extra-source-files:
-    ChangeLog.md
     README.md
+    ChangeLog.md
 
 source-repository head
   type: git
@@ -41,12 +42,13 @@ library
   ghc-options: -Wall
   build-depends:
       aeson
-    , base >=4.7 && <5
+    , base
     , bytestring
     , containers
     , parsec
     , split
     , text
+    , unordered-containers
   default-language: Haskell2010
 
 executable exospherec
@@ -58,7 +60,7 @@ executable exospherec
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
   build-depends:
       aeson
-    , base >=4.7 && <5
+    , base
     , bytestring
     , compiler
   default-language: Haskell2010
@@ -69,7 +71,6 @@ test-suite exosphere-test
   other-modules:
       CodeGen.GenerateSpec
       Lexer.LexerSpec
-      LexerSpec
       Parser.SyntacticAnalysisSpec
       Paths_compiler
   hs-source-dirs:
@@ -77,7 +78,7 @@ test-suite exosphere-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
   build-depends:
       aeson
-    , base >=4.7 && <5
+    , base
     , bytestring
     , compiler
     , hspec

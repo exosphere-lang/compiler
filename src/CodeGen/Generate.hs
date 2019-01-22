@@ -8,6 +8,11 @@ import Data.Aeson.Types
 import GHC.Generics
 import Parser.AST
 
+import qualified Data.HashMap.Lazy as HML
+
+mergeAeson :: [Value] -> Value
+mergeAeson listOfValues = Object . HML.unions $ map (\(Object x) -> x) listOfValues
+
 cloudFormationFormatVersion :: FormatVersion
 cloudFormationFormatVersion = "2010-09-09"
 
@@ -20,9 +25,11 @@ generateCloudFormationFromAST (AST res) = CloudFormationTemplate cloudFormationF
 cloudFormationWithNoResources :: FormatVersion -> Value
 cloudFormationWithNoResources formatVersion = object [ "AWSTemplateFormatVersion" .= formatVersion, "Resources" .= emptyObject ]
 
-cloudFormationWithSingleResource :: FormatVersion -> Resource -> Value
-cloudFormationWithSingleResource formatVersion resource = object [ "AWSTemplateFormatVersion" .= formatVersion, "Resources" .= resource ]
+cloudFormationWithSingleResource :: FormatVersion -> [Resource] -> Value
+cloudFormationWithSingleResource formatVersion resources = 
+  object [ "AWSTemplateFormatVersion" .= formatVersion, "Resources" .= (mergeAeson $ map toJSON resources) ]
 
 instance ToJSON CloudFormationTemplate where
   toJSON (CloudFormationTemplate formatVersion []) = cloudFormationWithNoResources formatVersion
-  toJSON (CloudFormationTemplate formatVersion [resource]) = cloudFormationWithSingleResource formatVersion resource
+  toJSON (CloudFormationTemplate formatVersion resources) = cloudFormationWithSingleResource formatVersion resources
+  

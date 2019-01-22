@@ -1,10 +1,10 @@
 module Main where
 
+import CodeGen.Generate
+import Data.Aeson         (encodeFile)
 import Lexer.Lexer
 import Parser.Parse       (parse)
 import System.Environment (getArgs)
-import Data.Aeson (encode, encodeFile)
-import CodeGen.Generate
 
 main :: IO ()
 main = do
