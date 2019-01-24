@@ -88,6 +88,13 @@ MyWebsiteAssets S3
 | --- | --- |
 | AWS::S3::Bucket | S3 |
 | AWS::ECS::Cluster | ECSCluster |
+| AWS::ApiGateway::Account | ApiGatewayAccount |
+| AWS::ApiGateway::ApiKey | ApiGatewayApiKey |
+| AWS::ApiGateway::ClientCertificate | ApiGatewayClientCertificate |
+| AWS::ApiGateway::RestApi | ApiGatewayRestApi |
+| AWS::ApiGateway::UsagePlan | ApiGatewayUsagePlan |
+| AWS::AppStream::Stack | AppStreamStack |
+| AWS::AppSync::ApiKey | AppSyncApiKey |
 
 ## Contributing  <a name="contributing"></a>
 
