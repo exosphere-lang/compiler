@@ -47,7 +47,7 @@ spec =
         let Left result = analyse (Program [Resource [Keyword S3, Keyword S3]])
         result `shouldBe` expectedResponse
 
-    describe "Succesfull parse" $ do
+    describe "Succesful parse" $ do
       it "returns syntax tree for a resource with a name and type" $ do
         let expectedResponse = AST.AST [AST.Resource "MyExampleBucket" S3]
 

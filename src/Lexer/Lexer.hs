@@ -1,21 +1,28 @@
 module Lexer.Lexer where
 
-import Prelude         hiding (lookup)
+import Data.List       (isPrefixOf)
 import Data.List.Split (splitOn)
-import Data.Maybe      (fromMaybe)
 import Data.Map        (lookup)
+import Data.Maybe      (fromMaybe)
 import Lexer.Grammar
 import Lexer.Keywords
+import Prelude         hiding (lookup)
+
+commentsSymbol :: String
+commentsSymbol = "//"
 
 lexe :: String -> Program
 lexe input = matchInputToProgram $  inputs
   where
-    inputs = map (splitOn " ") $ splitOn "\n" (removeTrailingCarraigeReturn input)
+    inputs = map (splitOn " ") . removeComments $ splitOn "\n" (removeTrailingCarraigeReturnFromEndOfProgram input)
 
-removeTrailingCarraigeReturn :: String -> String
-removeTrailingCarraigeReturn s
+removeTrailingCarraigeReturnFromEndOfProgram :: String -> String
+removeTrailingCarraigeReturnFromEndOfProgram s
   | length s > 0 = if last s == '\n' then init s else s
   | otherwise    = s
+
+removeComments :: [String] -> [String]
+removeComments = filter (\line -> not $ commentsSymbol `isPrefixOf` line)
 
 matchInputToProgram :: [[String]] -> Program
 matchInputToProgram input = Program $ map matchInputToResource input

@@ -33,6 +33,7 @@ Ensure that the executable generate from stack build is in your `$PATH`.
 Create a valid Exosphere file such as `ExosphereBucket.exo`:
 
 ```
+// Create a new S3 bucket with a random name
 ExosphereBucket S3
 ```
 
@@ -71,6 +72,15 @@ Examples can be found at [exosphere-lang/examples](https://github.com/exosphere-
 You can find the formal grammar for Exosphere at [exosphere-lang/grammar](https://github.com/exosphere-lang/grammar).
 
 ## Documentation  <a name="documentation"></a>
+
+### Comments
+
+Comments are single line only denoted by two slashes at the beginning of a declaration, e.g:
+
+```
+// Bucket for website assets
+MyWebsiteAssets S3
+```
 
 ### Supported CloudFormation Types  <a name="supported_cloudFormation_types"></a>
 

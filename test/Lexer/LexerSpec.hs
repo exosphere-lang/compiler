@@ -6,7 +6,7 @@ import Lexer.Grammar
 import ServiceType (ServiceType(..))
 
 spec :: Spec
-spec =
+spec = do
   describe "Lexer" $ do
     it "returns empty program if empty string is provided" $ do
       let expectedResult = Program [ Resource [ Word "" ] ]
@@ -60,4 +60,17 @@ spec =
       let expectedResult = Program [ Resource [ Keyword ECSCluster, Word "MyExampleCluster" ] ]
         
       let result = lexe "ECSCluster MyExampleCluster\n"
+      result `shouldBe` expectedResult
+
+  describe "comments lexing" $ do
+    it "returns an empty program when given only a single comment" $ do
+      let expectedResult = Program []
+        
+      let result = lexe "// this is a comment"
+      result `shouldBe` expectedResult
+
+    it "returns a program ignoring the comment line but lexing a valid resource correctly" $ do
+      let expectedResult = Program [ Resource [ Word "MyExampleBucket", Keyword S3 ]]
+        
+      let result = lexe "// this is a comment\nMyExampleBucket S3"
       result `shouldBe` expectedResult
