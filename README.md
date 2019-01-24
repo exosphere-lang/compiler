@@ -8,7 +8,7 @@ A high level AWS CloudFormation language and compiler.
 
 The goal of Exosphere is to simplify the creation of Amazon Web Service CloudFormation templates and create useful compile-time feedback to the user. Exosphere is capable of turning `exo` files into CloudFormation templates, `exo` files are parsed and checked to ensure any generated CloudFormation is valid.
 
-## Table of Contents
+### Table of Contents
 1. [Getting started](#getting_started)
 2. [Stability](#stability)
 3. [Examples](#examples)
