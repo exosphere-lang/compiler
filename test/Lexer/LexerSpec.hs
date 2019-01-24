@@ -57,9 +57,9 @@ spec = do
       result `shouldBe` expectedResult
 
     it "returns a program with a single resource of keyword ECSCluster and word MyExampleCluster" $ do
-      let expectedResult = Program [ Resource [ Keyword ECSCluster, Word "MyExampleCluster" ] ]
+      let expectedResult = Program [ Resource [Word "S3Bucket", Keyword S3], Resource [ Keyword ECSCluster, Word "MyExampleCluster" ] ]
         
-      let result = lexe "ECSCluster MyExampleCluster\n"
+      let result = lexe "S3Bucket S3\nECSCluster MyExampleCluster\n"
       result `shouldBe` expectedResult
 
   describe "comments lexing" $ do
