@@ -57,3 +57,45 @@ spec =
         let inputAST = AST [ Resource "MyExampleBucket" ECSCluster ]
 
         unpack (encode (generateCloudFormationFromAST inputAST)) `shouldBe` expectedResponse
+
+      it "returns valid cloudformation template with a single ApiGateway Account resource" $ do
+        expectedResponse <- readFile "./test/CodeGen/fixtures/TemplateWithMinimalApiGatewayAccountResource.json"
+        let inputAST = AST [ Resource "MyApiGatewayAccount" ApiGatewayAccount ]
+
+        unpack (encode (generateCloudFormationFromAST inputAST)) `shouldBe` expectedResponse
+
+      it "returns valid cloudformation template with a single ApiGateway API Key resource" $ do
+        expectedResponse <- readFile "./test/CodeGen/fixtures/TemplateWithMinimalApiGatewayApiKeyResource.json"
+        let inputAST = AST [ Resource "MyApiGatewayApiKey" ApiGatewayApiKey ]
+
+        unpack (encode (generateCloudFormationFromAST inputAST)) `shouldBe` expectedResponse
+
+      it "returns valid cloudformation template with a single ApiGateway Client Certificate resource" $ do
+        expectedResponse <- readFile "./test/CodeGen/fixtures/TemplateWithMinimalApiGatewayClientCertificateResource.json"
+        let inputAST = AST [ Resource "MyApiGatewayClientCertificate" ApiGatewayClientCertificate ]
+
+        unpack (encode (generateCloudFormationFromAST inputAST)) `shouldBe` expectedResponse
+    
+      it "returns valid cloudformation template with a single ApiGateway RestApi resource" $ do
+        expectedResponse <- readFile "./test/CodeGen/fixtures/TemplateWithMinimalApiGatewayRestApiResource.json"
+        let inputAST = AST [ Resource "MyApiGatewayRestApi" ApiGatewayRestApi ]
+
+        unpack (encode (generateCloudFormationFromAST inputAST)) `shouldBe` expectedResponse
+
+      it "returns valid cloudformation template with a single ApiGateway UsagePlan resource" $ do
+        expectedResponse <- readFile "./test/CodeGen/fixtures/TemplateWithMinimalApiGatewayRestUsagePlan.json"
+        let inputAST = AST [ Resource "MyApiGatewayUsagePlan" ApiGatewayUsagePlan ]
+
+        unpack (encode (generateCloudFormationFromAST inputAST)) `shouldBe` expectedResponse
+
+      it "returns valid cloudformation template with a single AppStream Stack resource" $ do
+        expectedResponse <- readFile "./test/CodeGen/fixtures/TemplateWithMinimalAppStreamStack.json"
+        let inputAST = AST [ Resource "MyAppStreamStack" AppStreamStack ]
+
+        unpack (encode (generateCloudFormationFromAST inputAST)) `shouldBe` expectedResponse
+    
+      it "returns valid cloudformation template with a single AppStream Api Key resource" $ do
+        expectedResponse <- readFile "./test/CodeGen/fixtures/TemplateWithMinimalAppSyncApiKey.json"
+        let inputAST = AST [ Resource "MyAppSyncApiKey" AppSyncApiKey ]
+
+        unpack (encode (generateCloudFormationFromAST inputAST)) `shouldBe` expectedResponse
