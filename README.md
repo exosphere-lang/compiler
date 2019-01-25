@@ -15,7 +15,8 @@ The goal of Exosphere is to simplify the creation of Amazon Web Service CloudFor
 4. [Grammar](#grammar)
 5. [Examples](#examples)
 6. [Documentation](#documentation)
-    1. [Supported CloudFormation Types](#supported_cloudFormation_types)
+    1. [Comments](#comments)
+    2. [Supported CloudFormation Types](#supported_cloudFormation_types)
 7. [Contributing](#contributing)
 
 
@@ -73,7 +74,7 @@ You can find the formal grammar for Exosphere at [exosphere-lang/grammar](https:
 
 ## Documentation  <a name="documentation"></a>
 
-### Comments
+### Comments <a name="comments"></a>
 
 Comments are single line only denoted by two slashes at the beginning of a declaration, e.g:
 
