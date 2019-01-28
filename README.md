@@ -81,7 +81,7 @@ The properties are optional. If you omit them, then the brackets are not needed.
 | resource_type | The service you want to use - corresponds to the AWS::xx::xx format | EC2, S3, Lambda, etc |
 | properties | The properties you want the resource to have - seperated by a comma, where each key and value is seperated by whitespace |  |
 
-For example, 
+Putting this together, you will have something like:
 
 ```MyS3Bucket S3```
 
