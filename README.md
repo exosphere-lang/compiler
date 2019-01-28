@@ -66,6 +66,22 @@ The Exosphere grammar is still subject to change, using Exosphere in production 
 
 ## Documentation  <a name="documentation"></a>
 
+### Format
+
+The format for an exosphere (.exo) file is:
+
+```resource_name resource_type { properties }```
+
+| key | description | sample |
+| --- | --- |
+| resource_name | The name you want the cloud formation resource to have | MyResource, FestivePictures, MyWebiste, etc |
+| resource_type | The service you want to use - corresponds to the AWS::**::** format | EC2, S3, Lambda, etc |
+| properties | The properties you want the resource to have | |
+
+For example, 
+
+```MyS3Bucket S3```
+
 ### Comments <a name="comments"></a>
 
 Comments are single line only denoted by two slashes at the beginning of a declaration, e.g:
