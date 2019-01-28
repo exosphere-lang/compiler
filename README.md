@@ -26,8 +26,8 @@ The goal of Exosphere is to simplify the creation of Amazon Web Service CloudFor
 Build Exosphere from source:
 
 ```shell
-$ git clone git@github.com:exosphere-lang/compiler.git && cd compiler
-$ stack build --copy-bins
+git clone git@github.com:exosphere-lang/compiler.git && cd compiler
+stack build --copy-bins
 ```
 
 Ensure that the executable generate from stack build is in your `$PATH`.
