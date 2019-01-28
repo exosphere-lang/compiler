@@ -96,7 +96,7 @@ Comments are single line only denoted by two slashes at the beginning of a decla
 MyWebsiteAssets S3
 ```
 
-### Supported CloudFormation Types  <a name="supported_cloudFormation_types"></a>
+### Currently Supported CloudFormation Types  <a name="supported_cloudFormation_types"></a>
 
 | CloudFormation | Exosphere |
 | --- | --- |
