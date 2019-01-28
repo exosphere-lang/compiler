@@ -35,7 +35,7 @@ Ensure that the executable generate from stack build is in your `$PATH`.
 Create a valid Exosphere file such as `ExosphereBucket.exo`:
 
 ```
-// Create a new S3 bucket with a random name
+// Create a new S3 bucket with the name `ExosphereBucket`.
 ExosphereBucket S3
 ```
 
@@ -84,6 +84,8 @@ The properties are optional. If you omit them, then the brackets are not needed.
 Putting this together, you will have something like:
 
 ```MyS3Bucket S3```
+
+which will create an S3 bucket called `MyS3Bucket`.
 
 ### Comments <a name="comments"></a>
 
