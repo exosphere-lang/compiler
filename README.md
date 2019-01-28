@@ -13,6 +13,7 @@ The goal of Exosphere is to simplify the creation of Amazon Web Service CloudFor
 2. [Stability](#stability)
 3. [Examples](#examples)
 4. [Documentation](#documentation)
+    1. [Format](#format)
     1. [Comments](#comments)
     2. [Supported CloudFormation Types](#supported_cloudFormation_types)
 5. [Examples](#examples)
@@ -60,13 +61,13 @@ $ cat ./ExosphereBucket.exo.json
 
 Finally, upload to AWS CloudFormation and create your stack!
 
-## Stability  <a name="stability"></a>
+## Stability <a name="stability"></a>
 
 The Exosphere grammar is still subject to change, using Exosphere in production isn't recomended at this time.
 
-## Documentation  <a name="documentation"></a>
+## Documentation <a name="documentation"></a>
 
-### Format
+### Format <a name="format"></a>
 
 The format for an exosphere (.exo) file is:
 
