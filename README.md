@@ -73,7 +73,7 @@ The format for an exosphere (.exo) file is:
 ```resource_name resource_type { properties }```
 
 | key | description | sample |
-| --- | --- |
+| --- | --- | -- |
 | resource_name | The name you want the cloud formation resource to have | MyResource, FestivePictures, MyWebiste, etc |
 | resource_type | The service you want to use - corresponds to the AWS::**::** format | EC2, S3, Lambda, etc |
 | properties | The properties you want the resource to have | |
