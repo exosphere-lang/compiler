@@ -70,13 +70,15 @@ The Exosphere grammar is still subject to change, using Exosphere in production 
 
 The format for an exosphere (.exo) file is:
 
-```resource_name resource_type { properties }```
+```resource_name resource_type { propKey1 propValue1, propKey2 propValue2, ... }```
+
+The properties are optional. If you omit them, then the brackets are not needed. If you include properties, then the brackets are required. However, the brackets and properties can span multiple lines. Please see the table below for more details
 
 | key | description | sample |
 | --- | --- | -- |
 | resource_name | The name you want the cloud formation resource to have | MyResource, FestivePictures, MyWebiste, etc |
 | resource_type | The service you want to use - corresponds to the AWS::**::** format | EC2, S3, Lambda, etc |
-| properties | The properties you want the resource to have | |
+| properties | The properties you want the resource to have - seperated by a comma, where each key and value is seperated by whitespace |  |
 
 For example, 
 
