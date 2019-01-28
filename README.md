@@ -12,11 +12,11 @@ The goal of Exosphere is to simplify the creation of Amazon Web Service CloudFor
 1. [Getting started](#getting_started)
 2. [Stability](#stability)
 3. [Examples](#examples)
-4. [Grammar](#grammar)
-5. [Examples](#examples)
-6. [Documentation](#documentation)
+4. [Documentation](#documentation)
     1. [Comments](#comments)
     2. [Supported CloudFormation Types](#supported_cloudFormation_types)
+5. [Examples](#examples)
+6. [Grammar](#grammar)
 7. [Contributing](#contributing)
 
 
@@ -64,14 +64,6 @@ Finally, upload to AWS CloudFormation and create your stack!
 
 The Exosphere grammar is still subject to change, using Exosphere in production isn't recomended at this time.
 
-## Examples  <a name="examples"></a>
-
-Examples can be found at [exosphere-lang/examples](https://github.com/exosphere-lang/examples). All example source code can be compiled into valid CloudFormation JSON.
-
-## Grammar  <a name="grammar"></a>
-
-You can find the formal grammar for Exosphere at [exosphere-lang/grammar](https://github.com/exosphere-lang/grammar).
-
 ## Documentation  <a name="documentation"></a>
 
 ### Comments <a name="comments"></a>
@@ -96,6 +88,14 @@ MyWebsiteAssets S3
 | AWS::ApiGateway::UsagePlan | ApiGatewayUsagePlan |
 | AWS::AppStream::Stack | AppStreamStack |
 | AWS::AppSync::ApiKey | AppSyncApiKey |
+
+## Examples  <a name="examples"></a>
+
+Examples can be found at [exosphere-lang/examples](https://github.com/exosphere-lang/examples). All example source code can be compiled into valid CloudFormation JSON.
+
+## Grammar  <a name="grammar"></a>
+
+You can find the formal grammar for Exosphere at [exosphere-lang/grammar](https://github.com/exosphere-lang/grammar).
 
 ## Contributing  <a name="contributing"></a>
 
