@@ -1,49 +1,21 @@
 module Lexer.Lexer where
 
-import Data.List       (isPrefixOf)
-import Data.List.Split (splitOn)
-import Data.Map        (lookup)
-import Data.Maybe      (fromMaybe)
 import Lexer.Grammar
-import Lexer.Keywords
-import ServiceType
-import Lexer.Punctuation
-import Prelude         hiding (lookup)
+import Text.Megaparsec
+import Text.Megaparsec.Char
+import Data.Void
+import qualified Text.Megaparsec.Char.Lexer as Lex
 
 commentsSymbol :: String
 commentsSymbol = "//"
 
+-- test undefined error type?
 lexe :: String -> Program
-lexe input = matchInputToProgram $ inputs
-  where
-    inputs = map (splitOn " ") . removeComments $ splitOn "\n" (removeTrailingCarraigeReturnFromEndOfProgram input)
+lexe programInput = either undefined id $ parse parser "" programInput
 
-removeTrailingCarraigeReturnFromEndOfProgram :: String -> String
-removeTrailingCarraigeReturnFromEndOfProgram s
-  | length s > 0 = if last s == '\n' then init s else s
-  | otherwise    = s
+parser :: Parser Program 
+parser = do
+  resourceName <- many alphaNumChar
+  return $ Program [ Resource [ Word resourceName ] ]
 
-removeComments :: [String] -> [String]
-removeComments = filter (\line -> not $ commentsSymbol `isPrefixOf` line)
-
-matchInputToProgram :: [[String]] -> Program
-matchInputToProgram input = Program $ map matchInputToResource input
-
-matchInputToResource :: [String] -> Resource
-matchInputToResource input = Resource $ map matchInputToToken input
-
-matchInputToToken :: String -> Token
-matchInputToToken input = 
-  isInputAServiceType input `orElse` (isInputPunctuation input `orElse` inputIsAWord input)
-
-isInputAServiceType :: String -> Maybe Token
-isInputAServiceType input = lookup input keywords 
-
-isInputPunctuation :: String -> Maybe Token
-isInputPunctuation input = lookup input punctuation 
-
-inputIsAWord :: String -> Token
-inputIsAWord input = Word input
-
-orElse :: Maybe a -> a -> a
-orElse = flip fromMaybe
+type Parser = Parsec Void String

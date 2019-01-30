@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 219fb81cb52ef405c063ad67894284bf202eed103bfa3d36407afbb876e6172c
+-- hash: 3cd3447b2536774404d25991550f41f3834d478116e2f39ba220b510d1baf555
 
 name:           compiler
 version:        0.1.0.0
@@ -45,6 +45,7 @@ library
     , base
     , bytestring
     , containers
+    , megaparsec
     , parsec
     , split
     , text
@@ -63,6 +64,7 @@ executable exospherec
     , base
     , bytestring
     , compiler
+    , megaparsec
   default-language: Haskell2010
 
 test-suite exosphere-test
@@ -82,4 +84,5 @@ test-suite exosphere-test
     , bytestring
     , compiler
     , hspec
+    , megaparsec
   default-language: Haskell2010

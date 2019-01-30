@@ -13,6 +13,7 @@ dependencies:
 - base
 - aeson
 - bytestring
+- megaparsec
 
 ghc-options:
 - -Wincomplete-patterns

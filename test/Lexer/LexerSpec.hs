@@ -87,3 +87,9 @@ spec = do
         
       let result = lexe "S3Bucket S3 }"
       result `shouldBe` expectedResult
+
+    it "a open brace followed by a closed brace is lexed into two symbols respectivley OpenBrace ClosedBrace" $ do
+      let expectedResult = Program [ Resource [ Word "S3Bucket", Keyword S3, Symbol OpenBrace, Symbol ClosedBrace ] ]
+        
+      let result = lexe "S3Bucket S3 {}"
+      result `shouldBe` expectedResult
