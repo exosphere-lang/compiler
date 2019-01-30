@@ -74,3 +74,16 @@ spec = do
         
       let result = lexe "// this is a comment\nMyExampleBucket S3"
       result `shouldBe` expectedResult
+
+  describe "symbols lexing" $ do
+    it "an open brace is lexed into a OpenBrace symbol" $ do
+      let expectedResult = Program [ Resource [ Word "S3Bucket", Keyword S3, Symbol OpenBrace ] ]
+        
+      let result = lexe "S3Bucket S3 {"
+      result `shouldBe` expectedResult
+
+    it "an closed brace is lexed into a ClosedBrace symbol" $ do
+      let expectedResult = Program [ Resource [ Word "S3Bucket", Keyword S3, Symbol ClosedBrace ] ]
+        
+      let result = lexe "S3Bucket S3 }"
+      result `shouldBe` expectedResult

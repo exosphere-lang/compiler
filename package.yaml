@@ -14,7 +14,7 @@ dependencies:
 - aeson
 - bytestring
 
-ghc-optons:
+ghc-options:
 - -Wincomplete-patterns
 - -Wall
 

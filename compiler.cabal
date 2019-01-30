@@ -1,10 +1,8 @@
-cabal-version: 1.12
-
--- This file has been generated from package.yaml by hpack version 0.31.1.
+-- This file has been generated from package.yaml by hpack version 0.28.2.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 17dea09af57fca48a643f2d3d5cd906226fa2eab58e1007f0c7d3c601443b3ce
+-- hash: 219fb81cb52ef405c063ad67894284bf202eed103bfa3d36407afbb876e6172c
 
 name:           compiler
 version:        0.1.0.0
@@ -16,9 +14,10 @@ copyright:      2019 Chris Bacon & Jacob Clark
 license:        MIT
 license-file:   LICENSE
 build-type:     Simple
+cabal-version:  >= 1.10
 extra-source-files:
-    README.md
     ChangeLog.md
+    README.md
 
 source-repository head
   type: git
@@ -30,6 +29,7 @@ library
       Lexer.Grammar
       Lexer.Keywords
       Lexer.Lexer
+      Lexer.Punctuation
       Parser.AST
       Parser.Parse
       Parser.ParseError.Errors
@@ -39,7 +39,7 @@ library
       Paths_compiler
   hs-source-dirs:
       src
-  ghc-options: -Wall
+  ghc-options: -Wincomplete-patterns -Wall
   build-depends:
       aeson
     , base
@@ -57,7 +57,7 @@ executable exospherec
       Paths_compiler
   hs-source-dirs:
       app
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
+  ghc-options: -Wincomplete-patterns -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson
     , base
@@ -75,7 +75,7 @@ test-suite exosphere-test
       Paths_compiler
   hs-source-dirs:
       test
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall
+  ghc-options: -Wincomplete-patterns -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson
     , base

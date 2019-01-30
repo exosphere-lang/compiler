@@ -6,13 +6,15 @@ import Data.Map        (lookup)
 import Data.Maybe      (fromMaybe)
 import Lexer.Grammar
 import Lexer.Keywords
+import ServiceType
+import Lexer.Punctuation
 import Prelude         hiding (lookup)
 
 commentsSymbol :: String
 commentsSymbol = "//"
 
 lexe :: String -> Program
-lexe input = matchInputToProgram $  inputs
+lexe input = matchInputToProgram $ inputs
   where
     inputs = map (splitOn " ") . removeComments $ splitOn "\n" (removeTrailingCarraigeReturnFromEndOfProgram input)
 
@@ -31,9 +33,17 @@ matchInputToResource :: [String] -> Resource
 matchInputToResource input = Resource $ map matchInputToToken input
 
 matchInputToToken :: String -> Token
-matchInputToToken input = do
-  let res = lookup input keywords
-  res `orElse` Word input
+matchInputToToken input = 
+  isInputAServiceType input `orElse` (isInputPunctuation input `orElse` inputIsAWord input)
+
+isInputAServiceType :: String -> Maybe Token
+isInputAServiceType input = lookup input keywords 
+
+isInputPunctuation :: String -> Maybe Token
+isInputPunctuation input = lookup input punctuation 
+
+inputIsAWord :: String -> Token
+inputIsAWord input = Word input
 
 orElse :: Maybe a -> a -> a
 orElse = flip fromMaybe

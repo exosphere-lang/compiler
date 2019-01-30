@@ -11,4 +11,10 @@ data Resource = Resource { getResourceTokens :: [Token] }
 data Token
   = Word String
   | Keyword ServiceType
+  | Symbol Punctuation
+  deriving (Eq, Show)
+
+data Punctuation 
+  = OpenBrace
+  | ClosedBrace
   deriving (Eq, Show)
