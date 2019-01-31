@@ -21,14 +21,13 @@ parser :: Parser Grammar.Program
 parser = do
   resourceName <- many alphaNumChar
   space
-  a <- many alphaNumChar
-
-  resourceType <- resourceTypeParser a 
+  resourceTypePosition <- many alphaNumChar
+  resourceType         <- validateResourceType resourceTypePosition
 
   return $ Grammar.Program [ Grammar.Resource [ Grammar.Word resourceName, resourceType ] ]
 
-resourceTypeParser :: String -> Parser Grammar.Token
-resourceTypeParser resourceType = do
+validateResourceType :: String -> Parser Grammar.Token
+validateResourceType resourceType = do
   case Map.lookup resourceType keywords of 
     Nothing          -> fancyFailure $ singleton $ ErrorCustom PE.NoResourceTypeSpecified
     Just serviceType -> return serviceType
