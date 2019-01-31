@@ -1,21 +1,36 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Lexer.Lexer where
 
-import Lexer.Grammar
-import Text.Megaparsec
-import Text.Megaparsec.Char
-import Data.Void
-import qualified Text.Megaparsec.Char.Lexer as Lex
+import qualified Data.Map.Strict as Map
+import           Data.Set
+import qualified Lexer.Grammar as Grammar
+import           Lexer.Keywords
+import qualified Parser.ParseError.Errors as PE
+import           Prelude hiding (lookup)
+import           Text.Megaparsec
+import           Text.Megaparsec.Char
 
 commentsSymbol :: String
 commentsSymbol = "//"
 
--- test undefined error type?
-lexe :: String -> Program
-lexe programInput = either undefined id $ parse parser "" programInput
+type Parser = Parsec PE.ParseError String
 
-parser :: Parser Program 
+lexe :: String -> Either (ParseError (Token String) PE.ParseError) Grammar.Program
+lexe programInput = parse parser "" programInput
+
+parser :: Parser Grammar.Program 
 parser = do
   resourceName <- many alphaNumChar
-  return $ Program [ Resource [ Word resourceName ] ]
+  space
+  a <- many alphaNumChar
 
-type Parser = Parsec Void String
+  resourceType <- resourceTypeParser a 
+
+  return $ Grammar.Program [ Grammar.Resource [ Grammar.Word resourceName, resourceType ] ]
+
+resourceTypeParser :: String -> Parser Grammar.Token
+resourceTypeParser resourceType = do
+  case Map.lookup resourceType keywords of 
+    Nothing -> fancyFailure $ singleton $ ErrorCustom PE.NoResourceTypeSpecified
+    Just serviceType -> return serviceType

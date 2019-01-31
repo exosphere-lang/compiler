@@ -8,11 +8,12 @@ import System.Environment (getArgs)
 
 main :: IO ()
 main = do
-    (file:_) <- getArgs
-    fileContents <- readFile file
-    let astOrErrors = parse . lexe $ fileContents
-    case astOrErrors of
-        Right ast -> do
-            let outFile = file ++ ".json"
-            encodeFile outFile $ generateCloudFormationFromAST $ ast
-        Left errors -> print errors
+    print "bla"
+    -- (file:_) <- getArgs
+    -- fileContents <- readFile file
+    -- let astOrErrors = parse . lexe $ fileContents
+    -- case astOrErrors of
+    --     Right ast -> do
+    --         let outFile = file ++ ".json"
+    --         encodeFile outFile $ generateCloudFormationFromAST $ ast
+    --     Left errors -> print errors
