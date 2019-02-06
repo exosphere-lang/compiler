@@ -2,6 +2,7 @@
 
 module Lexer.Lexer where
 
+import Control.Monad                      (void)
 import qualified Data.Map.Strict          as Map
 import           Data.Set
 import qualified Lexer.Grammar            as Grammar
@@ -10,6 +11,7 @@ import qualified Parser.ParseError.Errors as PE
 import           Prelude                  hiding (lookup)
 import           Text.Megaparsec
 import           Text.Megaparsec.Char
+import           Text.Megaparsec.Char.Lexer hiding (space)
 
 type Parser      = Parsec PE.ParseError String
 type CustomError = ParseError (Token String) PE.ParseError
@@ -19,15 +21,32 @@ lexe programInput = parse parser "" programInput
 
 parser :: Parser Grammar.Program 
 parser = do
-  resourceName <- many alphaNumChar
+  resources <- some getResourceIgnoringComments
+
+  return $ Grammar.Program resources 
+
+getResourceIgnoringComments :: Parser Grammar.Resource
+getResourceIgnoringComments = do
+  _ <- many (comment *> eol)
+
+  r <- resource
+  return r
+
+comment :: Parser ()
+comment = skipLineComment "//"
+
+resource :: Parser Grammar.Resource
+resource = do
+  resourceNamePattern <- some alphaNumChar
+  space1
+  resourceTypePattern <- some alphaNumChar
   space
-  resourceTypePosition <- many alphaNumChar
-  resourceType         <- validateResourceType resourceTypePosition
 
-  return $ Grammar.Program [ Grammar.Resource [ Grammar.Word resourceName, resourceType ] ]
+  resourceType         <- resourceTypeOrFail resourceTypePattern
+  return $ Grammar.Resource [ Grammar.Word resourceNamePattern, resourceType ]
 
-validateResourceType :: String -> Parser Grammar.Token
-validateResourceType resourceType = do
+resourceTypeOrFail :: String -> Parser Grammar.Token
+resourceTypeOrFail resourceType = do
   case Map.lookup resourceType keywords of 
-    Nothing          -> fancyFailure $ singleton $ ErrorCustom PE.NoResourceTypeSpecified
+    Nothing          -> fancyFailure $ singleton $ ErrorCustom PE.InvalidResourceTypeSpecified
     Just serviceType -> return serviceType
