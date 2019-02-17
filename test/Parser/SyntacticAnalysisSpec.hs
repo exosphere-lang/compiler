@@ -11,7 +11,7 @@ import Text.Megaparsec.Error
 spec :: Spec
 spec = do
   describe "Parsing" $ do
-    describe "resources lexing" $ do
+    describe "resources parsing" $ do
       it "returns unexpected end of input if nothing is provided" $ do
         let expectedResult = "1:1:\nunexpected end of input\nexpecting \"//\" or alphanumeric character\n"
 
@@ -60,7 +60,7 @@ spec = do
         let (Right result) = analyse "MyExampleBucket S3\n"
         result `shouldBe` expectedResult
 
-    describe "comments lexing" $ do
+    describe "comments parsin" $ do
       it "returns an unexpected end of input when given only a single comment" $ do
         let expectedResult = "2:1:\nunexpected end of input\nexpecting \"//\" or alphanumeric character\n"
 

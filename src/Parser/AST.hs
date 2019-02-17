@@ -15,6 +15,7 @@ type ResourceName = String
 instance ToJSON AST
 
 instance ToJSON Resource where
-  toJSON (Resource resourceName serviceType) = object 
-    [ (T.pack resourceName) .= object [ "Type" .= (show serviceType) ]
-    ]
+  toJSON (Resource resourceName serviceType) = 
+    object 
+      [ (T.pack resourceName) .= object [ "Type" .= (show serviceType) ]
+      ]
