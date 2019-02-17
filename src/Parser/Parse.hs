@@ -1,9 +1,8 @@
 module Parser.Parse where
 
-import Lexer.Grammar
-import Parser.SyntacticAnalysis (analyse)
-import Parser.AST
-import Parser.ParseError.Errors
+import qualified Parser.AST               as AST
+import           Parser.CustomError
+import           Parser.SyntacticAnalysis (analyse)
 
-parse :: Program -> Either [ParseError] AST
+parse :: String -> Either CustomError AST.AST
 parse = analyse

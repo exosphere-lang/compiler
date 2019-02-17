@@ -1,56 +1,94 @@
 module Parser.SyntacticAnalysisSpec (spec) where
 
-import Test.Hspec
+import Parser.AST
 import Parser.ParseError.Errors
-import Lexer.Grammar
-import qualified Parser.AST as AST
 import Parser.SyntacticAnalysis
 import ServiceType (ServiceType(..))
+import Test.Hspec
+
+import Text.Megaparsec.Error
 
 spec :: Spec
-spec =
-  describe "SyntacticAnalysis" $ do
-    describe "Unsuccesful parse" $ do
-      it "returns EmptyProgram error if given empty program" $ do
-        let expectedResponse = [EmptyProgram]
+spec = do
+  describe "Parsing" $ do
+    describe "resources lexing" $ do
+      it "returns unexpected end of input if nothing is provided" $ do
+        let expectedResult = "1:1:\nunexpected end of input\nexpecting \"//\" or alphanumeric character\n"
 
-        let Left results = analyse $ Program [] 
-        results `shouldBe` expectedResponse
-      
-      it "returns a No program found InvalidSyntax error when given an empty program" $ do
-        let expectedError =  [NoResourceTypeSpecified]
+        let (Left result) = analyse ""
+        (parseErrorPretty result) `shouldBe` expectedResult
 
-        let Left result = analyse (Program [Resource [Word ""]])
-        result `shouldBe` expectedError
+      it "returns unexpected space if a string with a single space is provided" $ do
+        let expectedResult = "1:1:\nunexpected space\nexpecting \"//\" or alphanumeric character\n"
 
-      it "returns error when no resource type is specified" $ do
-        let expectedError = [NoResourceTypeSpecified]
+        let (Left result) = analyse " "
+        (parseErrorPretty result) `shouldBe` expectedResult
 
-        let Left result = analyse (Program [Resource [Word "MyExampleBucket"]])
-        result `shouldBe` expectedError
+      it "returns unexpected end of input if a string with a newline is provided" $ do
+        let expectedResult = "1:1:\nunexpected newline\nexpecting \"//\" or alphanumeric character\n"
 
-      it "returns error when resource type does not come after the resource name" $ do
-        let expectedError = [ResourceTypeShouldComeAfterResourceName]
+        let (Left result) = analyse "\n"
+        (parseErrorPretty result) `shouldBe` expectedResult
 
-        let Left result = analyse (Program [Resource [Keyword S3, Word "MyExampleBucket"]])
-        result `shouldBe` expectedError
+      it "returns unexpected end of input when given only a resource name" $ do
+        let expectedResult = "1:16:\nunexpected end of input\nexpecting alphanumeric character or white space\n"
 
-      it "returns InvalidResource when a keyword is not preceeded by a resource name" $ do
-        let expectedResponse = [ResourceNameShouldComeBeforeResourceType]
+        let (Left result) = analyse "MyExampleBucket"
+        (parseErrorPretty result) `shouldBe` expectedResult
 
-        let Left result = analyse (Program [Resource [Word "MyExampleBucket", Word "MyOtherExampleBucket"]])
-        result `shouldBe` expectedResponse
-      
-      it "returns InvalidResource when a resource type is followed by a resource type" $ do
-        let expectedResponse = [ResourceTypeShouldComeAfterResourceName]
+      it "turns MyExampleBucket S3 into AST of MyExampleBucket and S3" $ do
+        let expectedResult = AST [ Resource "MyExampleBucket" S3 ]
 
-        let Left result = analyse (Program [Resource [Keyword S3, Keyword S3]])
-        result `shouldBe` expectedResponse
+        let (Right result) = analyse "MyExampleBucket S3"
+        result `shouldBe` expectedResult
 
-    describe "Succesful parse" $ do
-      it "returns syntax tree for a resource with a name and type" $ do
-        let expectedResponse = AST.AST [AST.Resource "MyExampleBucket" S3]
+      it "returns an InvalidServiceTypeSpecified error when given S3 MyExampleBucket" $ do
+        let expectedResult = "1:19:\n" ++ show InvalidServiceTypeSpecified ++ "\n"
 
-        let Right result = analyse (Program [Resource [Word "MyExampleBucket", Keyword S3]])
-        result `shouldBe` expectedResponse
+        let (Left result) = analyse "S3 MyExampleBucket"
+        (parseErrorPretty result) `shouldBe` expectedResult
+
+      it "turns an arbitary number of Keywords and Words into multiple AST resources" $ do
+        let expectedResult = AST [ Resource "MyExampleBucket" S3, Resource "MyOtherExampleBucket" S3 ]
+
+        let (Right result) = analyse "MyExampleBucket S3 MyOtherExampleBucket S3"
+        result `shouldBe` expectedResult
+
+      it "returns a AST with a single resource when given a single resource with a trailing carriage return" $ do
+        let expectedResult =  AST [ Resource "MyExampleBucket" S3 ]
+          
+        let (Right result) = analyse "MyExampleBucket S3\n"
+        result `shouldBe` expectedResult
+
+    describe "comments lexing" $ do
+      it "returns an unexpected end of input when given only a single comment" $ do
+        let expectedResult = "2:1:\nunexpected end of input\nexpecting \"//\" or alphanumeric character\n"
+
+        let (Left result) = analyse "// this is a comment\n"
+        parseErrorPretty result `shouldBe` expectedResult
+
+      it "returns a AST when given a single comment on the line above the AST" $ do
+        let expectedResult =  AST [ Resource "ExampleBucket" S3 ]
+
+        let (Right result) = analyse "// this is a comment\nExampleBucket S3"
+        result `shouldBe` expectedResult
+
+  -- describe "symbols lexing" $ do
+  --   it "an open brace is analysed into a OpenBrace symbol" $ do
+  --     let expectedResult = AST [ Resource [ "S3Bucket", S3, Symbol OpenBrace ] ]
+        
+  --     let result = analyse "S3Bucket S3 {"
+  --     result `shouldBe` expectedResult
+
+  --   it "an closed brace is analysed into a ClosedBrace symbol" $ do
+  --     let expectedResult = AST [ Resource [ "S3Bucket", S3, Symbol ClosedBrace ] ]
+        
+  --     let result = analyse "S3Bucket S3 }"
+  --     result `shouldBe` expectedResult
+
+  --   it "a open brace followed by a closed brace is analysed into two symbols respectivley OpenBrace ClosedBrace" $ do
+  --     let expectedResult = AST [ Resource [ "S3Bucket", S3, Symbol OpenBrace, Symbol ClosedBrace ] ]
+        
+  --     let result = analyse "S3Bucket S3 {}"
+  --     result `shouldBe` expectedResult
   

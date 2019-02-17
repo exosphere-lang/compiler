@@ -1,30 +1,52 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Parser.SyntacticAnalysis where
 
-import Parser.AST
-import Parser.ParseError.Errors
-import Lexer.Grammar hiding (Resource)
-import Data.Either
+import qualified Data.Map.Strict            as Map
+import           Data.Set  
+import           Parser.Keywords  
+import qualified Parser.AST                 as AST
+import           Parser.CustomError
+import qualified Parser.ParseError.Errors   as PE
+import           Prelude                    hiding (lookup)
+import           ServiceType                (ServiceType)
+import           Text.Megaparsec
+import           Text.Megaparsec.Char
+import           Text.Megaparsec.Char.Lexer hiding (space)
 
-analyse :: Program -> Either [ParseError] AST
-analyse (Program []) = Left [EmptyProgram]
-analyse program = do
-    let analysedResources = analyseLexedTokens <$> getTokensToAnalyse program
-    let errors            = lefts analysedResources
+type Parser = Parsec PE.ParseError String
 
-    case errors of
-        [] -> Right $ AST (rights analysedResources)
-        _  -> Left errors
+analyse :: String -> Either CustomError AST.AST
+analyse programInput = parse parser "" programInput
 
-getTokensToAnalyse :: Program -> [[Token]]
-getTokensToAnalyse program = map getResourceTokens $ getProgramResources $ program
+parser :: Parser AST.AST
+parser = do
+  resources <- some getResourceIgnoringComments
 
-analyseLexedTokens :: [Token] -> Either ParseError Resource
-analyseLexedTokens (Word resourceName:Keyword serviceType:_) =  Right $ Resource resourceName serviceType
-analyseLexedTokens tokens = Left $ handleInvalidSyntax tokens 
+  return $ AST.AST resources 
 
-handleInvalidSyntax :: [Token] -> ParseError
-handleInvalidSyntax []                 = EmptyProgram
-handleInvalidSyntax (Word _:[])        = NoResourceTypeSpecified
-handleInvalidSyntax (Keyword _:_)      = ResourceTypeShouldComeAfterResourceName
-handleInvalidSyntax (Word _: Word _:_) = ResourceNameShouldComeBeforeResourceType
-handleInvalidSyntax _                  = FatalError
+getResourceIgnoringComments :: Parser AST.Resource
+getResourceIgnoringComments = do
+  _ <- many (comment *> eol)
+
+  r <- resource
+  return r
+
+comment :: Parser ()
+comment = skipLineComment "//"
+
+resource :: Parser AST.Resource
+resource = do
+  resourceNamePattern <- some alphaNumChar
+  space1
+  serviceTypePattern  <- some alphaNumChar
+  space
+
+  serviceType <- serviceTypeOrFail serviceTypePattern
+  return $ AST.Resource resourceNamePattern serviceType
+
+serviceTypeOrFail :: String -> Parser ServiceType
+serviceTypeOrFail serviceType = do
+  case Map.lookup serviceType keywordsMap of 
+    Nothing -> fancyFailure $ singleton $ ErrorCustom PE.InvalidServiceTypeSpecified
+    Just st -> return st
