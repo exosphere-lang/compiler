@@ -4,9 +4,9 @@
 module Parser.AST where
 
 import           Data.Aeson
-import qualified Data.Text as T
+import qualified Data.Text    as T
 import           GHC.Generics
-import           ServiceType (ServiceType)
+import           ServiceType  (ServiceType)
 
 data AST          = AST [Resource]                    deriving (Eq, Show, Generic)
 data Resource     = Resource ResourceName ServiceType deriving (Eq, Show, Generic)
