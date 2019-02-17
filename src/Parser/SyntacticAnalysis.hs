@@ -28,8 +28,9 @@ parser = do
 getResourceIgnoringComments :: Parser AST.Resource
 getResourceIgnoringComments = do
   _ <- many (comment *> eol)
-
   r <- resource
+  _ <- many comment
+
   return r
 
 comment :: Parser ()

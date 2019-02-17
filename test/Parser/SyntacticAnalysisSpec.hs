@@ -60,35 +60,39 @@ spec = do
         let (Right result) = analyse "MyExampleBucket S3\n"
         result `shouldBe` expectedResult
 
-    describe "comments parsin" $ do
+    describe "comments parsing" $ do
       it "returns an unexpected end of input when given only a single comment" $ do
         let expectedResult = "2:1:\nunexpected end of input\nexpecting \"//\" or alphanumeric character\n"
 
         let (Left result) = analyse "// this is a comment\n"
         parseErrorPretty result `shouldBe` expectedResult
 
-      it "returns a AST when given a single comment on the line above the AST" $ do
+      it "returns a AST when given a single comment on the line above the exo code" $ do
         let expectedResult =  AST [ Resource "ExampleBucket" S3 ]
 
         let (Right result) = analyse "// this is a comment\nExampleBucket S3"
         result `shouldBe` expectedResult
 
-  -- describe "symbols lexing" $ do
-  --   it "an open brace is analysed into a OpenBrace symbol" $ do
-  --     let expectedResult = AST [ Resource [ "S3Bucket", S3, Symbol OpenBrace ] ]
-        
-  --     let result = analyse "S3Bucket S3 {"
-  --     result `shouldBe` expectedResult
+      it "returns a AST when given a single comment on the line below the exo code" $ do
+        let expectedResult =  AST [ Resource "ExampleBucket" S3 ]
 
-  --   it "an closed brace is analysed into a ClosedBrace symbol" $ do
-  --     let expectedResult = AST [ Resource [ "S3Bucket", S3, Symbol ClosedBrace ] ]
-        
-  --     let result = analyse "S3Bucket S3 }"
-  --     result `shouldBe` expectedResult
+        let (Right result) = analyse "ExampleBucket S3\n// this is a comment"
+        result `shouldBe` expectedResult
 
-  --   it "a open brace followed by a closed brace is analysed into two symbols respectivley OpenBrace ClosedBrace" $ do
-  --     let expectedResult = AST [ Resource [ "S3Bucket", S3, Symbol OpenBrace, Symbol ClosedBrace ] ]
-        
-  --     let result = analyse "S3Bucket S3 {}"
-  --     result `shouldBe` expectedResult
-  
+      it "returns a AST when given a single comment on the line below the exo code with an end of line" $ do
+        let expectedResult =  AST [ Resource "ExampleBucket" S3 ]
+
+        let (Right result) = analyse "ExampleBucket S3\n// this is a comment\n"
+        result `shouldBe` expectedResult
+
+      it "returns a AST when given two comments on the line below the exo code" $ do
+        let expectedResult =  AST [ Resource "ExampleBucket" S3 ]
+
+        let (Right result) = analyse "ExampleBucket S3\n// this is a comment\n// this is a comment"
+        result `shouldBe` expectedResult
+
+      it "returns a AST when given two comments on the line above the exo code" $ do
+        let expectedResult =  AST [ Resource "ExampleBucket" S3 ]
+
+        let (Right result) = analyse "// this is a comment\n// this is a comment\nExampleBucket S3"
+        result `shouldBe` expectedResult
