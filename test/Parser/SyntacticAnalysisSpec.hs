@@ -3,6 +3,7 @@ module Parser.SyntacticAnalysisSpec (spec) where
 import Parser.AST
 import Parser.ParseError.Errors
 import Parser.SyntacticAnalysis
+import qualified Parser.S3.AccessControl as AccessControl
 import ServiceType (ServiceType(..))
 import Test.Hspec
 
@@ -95,4 +96,11 @@ spec = do
         let expectedResult =  AST [ Resource "ExampleBucket" S3 ]
 
         let (Right result) = analyse "// this is a comment\n// this is a comment\nExampleBucket S3"
+        result `shouldBe` expectedResult
+
+    describe "properties parsing" $ do
+      it "returns x" $ do
+        let expectedResult = AST [ Resource "ExampleBucket" S3 ]
+
+        let (Right result) = analyse "ExampleBucket S3 {AccessControl Private}"
         result `shouldBe` expectedResult

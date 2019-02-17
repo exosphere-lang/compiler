@@ -13,6 +13,7 @@ import           ServiceType                (ServiceType)
 import           Text.Megaparsec
 import           Text.Megaparsec.Char
 import           Text.Megaparsec.Char.Lexer hiding (space)
+import qualified Data.Map.Strict as Map
 
 type Parser = Parsec PE.ParseError String
 
@@ -42,12 +43,39 @@ resource = do
   space1
   serviceTypePattern  <- some alphaNumChar
   space
+  propertiesPattern <- single properties
 
   serviceType <- serviceTypeOrFail serviceTypePattern
   return $ AST.Resource resourceNamePattern serviceType
+
+properties = do
+  char '{'
+  space
+  properties <- many keyValue
+  space
+  char '}'
+  return properties
+
+keyValue = do
+    propertiesKey <- some alphaNumChar
+    space1
+    propertiesValue <- some alphaNumChar
+    return (propertiesKey, propertiesValue)
 
 serviceTypeOrFail :: String -> Parser ServiceType
 serviceTypeOrFail serviceType = do
   case Map.lookup serviceType keywordsMap of 
     Nothing -> fancyFailure $ singleton $ ErrorCustom PE.InvalidServiceTypeSpecified
     Just st -> return st
+
+validatePropertyOrFail :: (String, String) -> Parser String
+validatePropertyOrFail (key, value) =   
+  case Map.lookup key propertiesMap of 
+    Nothing -> fancyFailure $ singleton $ ErrorCustom PE.InvalidServiceTypeSpecified
+    Just values -> if value `elem` values then return value else undefined
+
+propertiesMap :: Map.Map String [String]
+propertiesMap = Map.fromList
+  [
+    ("AccessControl", ["Private", "Public"])
+  ]
