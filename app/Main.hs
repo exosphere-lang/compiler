@@ -13,5 +13,5 @@ main = do
     case astOrErrors of
         Right ast -> do
             let outFile = file ++ ".json"
-            encodeFile outFile $ generateCloudFormationFromAST $ ast
+            encodeFile outFile . generateCloudFormationFromAST $ ast
         Left errors -> print errors
