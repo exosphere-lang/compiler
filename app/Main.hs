@@ -12,9 +12,7 @@ import System.Environment (getArgs)
 main :: IO ()
 main = do
   getArgs >>= \case
-    [fileName] -> do
-      fileContents <- readFile fileName
-      runAST fileName . parse $ fileContents
+    [fileName] -> readFile fileName >>= runAST fileName . parse
     _ -> putStrLn help
 
 runAST :: FilePath -> Either CustomError AST -> IO ()
