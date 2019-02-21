@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8e2b3500329b237760d74963688c0b645ca82f8f504b8a4389425eb32adbf9ed
+-- hash: 10c309069ac63589e5ba414349825d64d6220f6082b5355222f85b0ca7308e0f
 
 name:           compiler
 version:        0.1.0.0
@@ -38,7 +38,7 @@ library
       Paths_compiler
   hs-source-dirs:
       src
-  ghc-options: -Wincomplete-patterns -Wall
+  ghc-options: -Wincomplete-patterns -Wall -O2
   build-depends:
       aeson
     , base
@@ -57,7 +57,7 @@ executable exospherec
       Paths_compiler
   hs-source-dirs:
       app
-  ghc-options: -Wincomplete-patterns -Wall -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wincomplete-patterns -Wall -O2 -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson
     , base
@@ -75,7 +75,7 @@ test-suite exosphere-test
       Paths_compiler
   hs-source-dirs:
       test
-  ghc-options: -Wincomplete-patterns -Wall -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wincomplete-patterns -Wall -O2 -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       aeson
     , base

@@ -1,17 +1,25 @@
+{-# LANGUAGE LambdaCase #-}
+
 module Main where
 
 import CodeGen.Generate
 import Data.Aeson         (encodeFile)
+import Parser.AST
+import Parser.CustomError
 import Parser.Parse       (parse)
 import System.Environment (getArgs)
 
 main :: IO ()
 main = do
-    (file:_) <- getArgs
-    fileContents <- readFile file
-    let astOrErrors = parse fileContents
-    case astOrErrors of
-        Right ast -> do
-            let outFile = file ++ ".json"
-            encodeFile outFile . generateCloudFormationFromAST $ ast
-        Left errors -> print errors
+  getArgs >>= \case
+    [fileName] -> do
+      fileContents <- readFile fileName
+      runAST fileName . parse $ fileContents
+    _ -> putStrLn help
+
+runAST :: FilePath -> Either CustomError AST -> IO ()
+runAST _        (Left errors) = print errors
+runAST fileName (Right ast)   = encodeFile (fileName ++ ".json") . generateCloudFormationFromAST $ ast
+
+help :: String
+help = "Expected format: exospherec <file.exo>"

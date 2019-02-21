@@ -4,9 +4,9 @@ module Parser.SyntacticAnalysis where
 
 import qualified Data.Map.Strict            as Map
 import           Data.Set  
-import           Parser.Keywords  
-import qualified Parser.AST                 as AST
+import qualified Parser.AST                 as AST  
 import           Parser.CustomError
+import           Parser.Keywords
 import qualified Parser.ParseError.Errors   as PE
 import           Prelude                    hiding (lookup)
 import           ServiceType                (ServiceType)

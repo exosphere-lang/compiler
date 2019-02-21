@@ -18,6 +18,7 @@ dependencies:
 ghc-options:
 - -Wincomplete-patterns
 - -Wall
+- -O2
 
 executables:
   exospherec:
