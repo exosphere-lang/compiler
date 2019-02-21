@@ -12,7 +12,7 @@ import System.Environment (getArgs)
 main :: IO ()
 main = do
   getArgs >>= \case
-    [fileName] -> readFile fileName >>= runAST fileName . parse
+    [fileName] -> readFile fileName >>= (parse >>> runAST fileName)
     _ -> putStrLn help
 
 runAST :: FilePath -> Either CustomError AST -> IO ()
@@ -21,3 +21,6 @@ runAST fileName (Right ast)   = encodeFile (fileName ++ ".json") . generateCloud
 
 help :: String
 help = "Expected format: exospherec <file.exo>"
+
+(>>>) :: (a -> b) -> (b -> c) -> (a -> c)
+(>>>) = flip (.)
