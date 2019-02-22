@@ -4,7 +4,11 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
+<<<<<<< HEAD
 -- hash: 10c309069ac63589e5ba414349825d64d6220f6082b5355222f85b0ca7308e0f
+=======
+-- hash: 351833f2bc23be88502d86c3dbe821006fe2998b0e94bbc081e500ec42c374bf
+>>>>>>> properties-parsing
 
 name:           compiler
 version:        0.1.0.0
@@ -71,6 +75,7 @@ test-suite exosphere-test
   main-is: Spec.hs
   other-modules:
       CodeGen.GenerateSpec
+      Parser.S3.AccessControl
       Parser.SyntacticAnalysisSpec
       Paths_compiler
   hs-source-dirs:

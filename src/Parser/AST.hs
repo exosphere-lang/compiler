@@ -3,19 +3,30 @@
 
 module Parser.AST where
 
+import qualified Data.Map.Strict as Map
 import           Data.Aeson
 import qualified Data.Text    as T
 import           GHC.Generics
 import           ServiceType  (ServiceType)
 
-data AST          = AST [Resource]                    deriving (Eq, Show, Generic)
-data Resource     = Resource ResourceName ServiceType deriving (Eq, Show, Generic)
+data PropertyKey = AccessControl deriving (Eq, Show, Generic)
+data PropertyValue = Private deriving (Eq, Show, Generic)
+
+data AST = AST [Resource]                    
+  deriving (Eq, Show, Generic)
+
+data Resource = Resource ResourceName ServiceType [Property]
+  deriving (Eq, Show, Generic)
+
+data Property = Property String String
+  deriving (Eq, Show, Generic)
+
 type ResourceName = String
 
 instance ToJSON AST
 
 instance ToJSON Resource where
-  toJSON (Resource resourceName serviceType) = 
+  toJSON (Resource resourceName serviceType _) = 
     object 
       [ (T.pack resourceName) .= object [ "Type" .= (show serviceType) ]
       ]

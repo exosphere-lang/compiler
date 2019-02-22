@@ -20,21 +20,16 @@ analyse :: String -> Either CustomError AST.AST
 analyse programInput = parse parser "" programInput
 
 parser :: Parser AST.AST
-parser = do
-  resources <- some getResourceIgnoringComments
-
-  return $ AST.AST resources 
+parser = 
+  some getResourceIgnoringComments >>=
+    \resources -> return $ AST.AST resources 
 
 getResourceIgnoringComments :: Parser AST.Resource
 getResourceIgnoringComments = do
   _ <- many (comment *> eol)
   r <- resource
   _ <- many comment
-
   return r
-
-comment :: Parser ()
-comment = skipLineComment "//"
 
 resource :: Parser AST.Resource
 resource = do
@@ -42,12 +37,51 @@ resource = do
   space1
   serviceTypePattern  <- some alphaNumChar
   space
+  propertiesPattern <- withRecovery defaultProperty properties
 
-  serviceType <- serviceTypeOrFail serviceTypePattern
-  return $ AST.Resource resourceNamePattern serviceType
+  serviceType <- toServiceTypeOrFail serviceTypePattern
+  return $ AST.Resource resourceNamePattern serviceType propertiesPattern
 
-serviceTypeOrFail :: String -> Parser ServiceType
-serviceTypeOrFail serviceType = do
+-- TODO: Find a better way of doing this
+-- because this means that any errors in the properties parsing will be ignored
+defaultProperty :: a -> Parser [AST.Property]
+defaultProperty _ = return []
+
+properties :: Parser [AST.Property]
+properties = do
+  _ <- char '{'
+  space
+  props <- many keyValue
+  space
+  _ <- char '}'
+  return props
+
+keyValue :: Parser AST.Property
+keyValue = do
+  propertiesKey <- some alphaNumChar
+  space1
+  propertiesValue <- some alphaNumChar
+  _ <- many $ char ','
+  return $ AST.Property propertiesKey propertiesValue
+
+comment :: Parser ()
+comment = skipLineComment "//"
+
+toServiceTypeOrFail :: String -> Parser ServiceType
+toServiceTypeOrFail serviceType = do
   case Map.lookup serviceType keywordsMap of 
     Nothing -> fancyFailure $ singleton $ ErrorCustom PE.InvalidServiceTypeSpecified
     Just st -> return st
+
+-- TODO: Add to resource parser above
+validatePropertyOrFail :: (String, String) -> Parser String
+validatePropertyOrFail (key, value) =   
+  case Map.lookup key propertiesMap of 
+    Nothing -> fancyFailure $ singleton $ ErrorCustom PE.InvalidServiceTypeSpecified
+    Just values -> if value `elem` values then return value else undefined
+
+propertiesMap :: Map.Map String [String]
+propertiesMap = Map.fromList
+  [
+    ("AccessControl", ["Private", "Public"])
+  ]
