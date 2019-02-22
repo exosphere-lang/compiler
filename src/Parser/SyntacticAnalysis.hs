@@ -2,7 +2,6 @@
 
 module Parser.SyntacticAnalysis where
 
-import qualified Data.Map.Strict            as Map
 import           Data.Set  
 import qualified Parser.AST                 as AST  
 import           Parser.CustomError

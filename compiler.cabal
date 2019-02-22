@@ -4,11 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
-<<<<<<< HEAD
--- hash: 10c309069ac63589e5ba414349825d64d6220f6082b5355222f85b0ca7308e0f
-=======
--- hash: 351833f2bc23be88502d86c3dbe821006fe2998b0e94bbc081e500ec42c374bf
->>>>>>> properties-parsing
+-- hash: ea7f43092449b6eb9a7a08f56ff132721642f94482aa23c691ae31f4fba6cce4
 
 name:           compiler
 version:        0.1.0.0
