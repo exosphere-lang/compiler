@@ -10,7 +10,7 @@ import Parser.Parse       (parse)
 import System.Environment (getArgs)
 
 main :: IO ()
-main = do
+main =
   getArgs >>= \case
     [fileName] -> readFile fileName >>= (parse >>> runAST fileName)
     _ -> putStrLn help
