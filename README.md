@@ -1,6 +1,7 @@
 # The Exosphere Compiler
 
 [![Build Status](https://travis-ci.com/exosphere-lang/compiler.svg?branch=master)](https://travis-ci.com/exosphere-lang/compiler)
+[![Build Status](https://travis-ci.com/exosphere-lang/end-to-end-test.svg?branch=master)](https://travis-ci.com/exosphere-lang/end-to-end-test)
 
 A high level AWS CloudFormation language and compiler.
 
