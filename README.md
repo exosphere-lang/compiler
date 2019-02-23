@@ -35,11 +35,11 @@ Ensure that the executable generate from stack build is in your `$PATH`.
 Create a valid Exosphere file such as `ExosphereBucket.exo`:
 
 ```
-// Create a new S3 bucket with the name `ExosphereBucket`.
 ExosphereBucket S3
+FamilyPhotosBackup S3 { AccessControl Private }
 ```
 
-Run `exospherec` on the input file:
+Run `exospherec` on the input file. This will create a template for creating a new S3 bucket with the name `ExosphereBucket`, and one with the access properties.
 
 ```shell
 $ exospherec ./ExosphereBucket.exo
@@ -54,12 +54,18 @@ $ cat ./ExosphereBucket.exo.json
     "Resources": {
         "ExosphereBucket": {
             "Type": "AWS::S3::Bucket",
+        },
+         "FamilyPhotosBackup": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+                "AccessControl": "Private",
+            }
         }
     }
 }
 ```
 
-Finally, upload to AWS CloudFormation and create your stack!
+Finally, upload to AWS CloudFormation to create your stack!
 
 ## Stability <a name="stability"></a>
 
