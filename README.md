@@ -55,7 +55,7 @@ $ cat ./ExosphereBucket.exo.json
         "ExosphereBucket": {
             "Type": "AWS::S3::Bucket",
         },
-         "FamilyPhotosBackup": {
+        "FamilyPhotosBackup": {
             "Type": "AWS::S3::Bucket",
             "Properties": {
                 "AccessControl": "Private",
