@@ -99,3 +99,9 @@ spec =
         let inputAST = AST [ Resource "MyAppSyncApiKey" AppSyncApiKey [] ]
 
         unpack (encode (generateCloudFormationFromAST inputAST)) `shouldBe` expectedResponse
+        
+      it "returns valid cloudformation template with a single AppStream Api Key resource" $ do
+        expectedResponse <- readFile "./test/CodeGen/fixtures/TemplateWithMinimalS3ResourceWithProp.json"
+        let inputAST = AST [ Resource "MyExampleBucket" S3 [ Property "AccessControl" "Private"] ]
+
+        unpack (encode (generateCloudFormationFromAST inputAST)) `shouldBe` expectedResponse
