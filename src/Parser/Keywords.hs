@@ -6,7 +6,7 @@ import ServiceType (ServiceType(..))
 keywordsMap :: Map String ServiceType
 keywordsMap = fromList
   [
-    ("S3", S3),
+    ("S3Bucket", S3Bucket),
     ("ECSCluster", ECSCluster),
     ("ApiGatewayAccount", ApiGatewayAccount),
     ("ApiGatewayApiKey", ApiGatewayApiKey),

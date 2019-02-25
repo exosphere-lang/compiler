@@ -36,8 +36,8 @@ Ensure that the executable generate from stack build is in your `$PATH`.
 Create a valid Exosphere file such as `ExosphereBucket.exo`:
 
 ```
-ExosphereBucket S3
-FamilyPhotosBackup S3 { AccessControl Private }
+ExosphereBucket S3Bucket
+FamilyPhotosBackup S3Bucket { AccessControl Private }
 ```
 
 Run `exospherec` on the input file. This will create a template for creating a new S3 bucket with the name `ExosphereBucket`, and one with the access properties.
@@ -107,7 +107,7 @@ MyWebsiteAssets S3
 
 | CloudFormation | Exosphere |
 | --- | --- |
-| AWS::S3::Bucket | S3 |
+| AWS::S3::Bucket | S3Bucket |
 | AWS::ECS::Cluster | ECSCluster |
 | AWS::ApiGateway::Account | ApiGatewayAccount |
 | AWS::ApiGateway::ApiKey | ApiGatewayApiKey |
