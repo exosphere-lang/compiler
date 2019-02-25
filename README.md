@@ -90,7 +90,7 @@ The properties are optional. If you omit them, then the brackets are not needed.
 
 Putting this together, you will have something like:
 
-```MyS3Bucket S3```
+```MyS3Bucket S3Bucket```
 
 which will create an S3 bucket called `MyS3Bucket`.
 
@@ -100,22 +100,12 @@ Comments are single line only denoted by two slashes at the beginning of a decla
 
 ```
 // Bucket for website assets
-MyWebsiteAssets S3
+MyWebsiteAssets S3Bucket
 ```
 
 ### Currently Supported CloudFormation Types  <a name="supported_cloudFormation_types"></a>
 
-| CloudFormation | Exosphere |
-| --- | --- |
-| AWS::S3::Bucket | S3Bucket |
-| AWS::ECS::Cluster | ECSCluster |
-| AWS::ApiGateway::Account | ApiGatewayAccount |
-| AWS::ApiGateway::ApiKey | ApiGatewayApiKey |
-| AWS::ApiGateway::ClientCertificate | ApiGatewayClientCertificate |
-| AWS::ApiGateway::RestApi | ApiGatewayRestApi |
-| AWS::ApiGateway::UsagePlan | ApiGatewayUsagePlan |
-| AWS::AppStream::Stack | AppStreamStack |
-| AWS::AppSync::ApiKey | AppSyncApiKey |
+All AWS CloudFormation resource types are supported. The convention is to camel case the resource type and drop "AWS" and the colons, for example. "AWS::S3::Bucket" in CloudFormation becomes "S3Bucket" in Exosphere.
 
 ## Examples  <a name="examples"></a>
 
