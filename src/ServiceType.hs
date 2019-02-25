@@ -174,6 +174,9 @@ data ServiceType
   | EFSFileSystem
   | EFSMountTarget
   | EKSCluster
+  | ECSCluster
+  | ECSService
+  | ECSTaskDefinition
   | ElastiCacheCacheCluster
   | ElastiCacheParameterGroup
   | ElastiCacheReplicationGroup
