@@ -116,7 +116,7 @@ MyWebsiteAssets S3Bucket
 
 ### Currently Supported CloudFormation Types  <a name="supported_cloudFormation_types"></a>
 
-All AWS CloudFormation resource types are supported. The convention is to camel case the resource type and drop "AWS" and the colons, for example. "AWS::S3::Bucket" in CloudFormation becomes "S3Bucket" in Exosphere.
+All AWS CloudFormation resource types are supported. The convention is to camel case the resource type and drop "AWS" and the colons, for example. `AWS::S3::Bucket` in CloudFormation becomes `S3Bucket` in Exosphere.
 
 ## Examples  <a name="examples"></a>
 
