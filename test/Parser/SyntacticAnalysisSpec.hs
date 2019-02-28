@@ -4,6 +4,7 @@ import Parser.AST
 import Parser.ParseError.Errors
 import Parser.SyntacticAnalysis
 import ServiceType (ServiceType(..))
+import ServiceTypes.S3
 import Test.Hspec
 
 import Text.Megaparsec.Error
@@ -37,7 +38,7 @@ spec = do
         (parseErrorPretty result) `shouldBe` expectedResult
 
       it "turns MyExampleBucket S3 into AST of MyExampleBucket and S3" $ do
-        let expectedResult = AST [ Resource "MyExampleBucket" S3 [] ]
+        let expectedResult = AST [ Resource "MyExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [] ]
 
         let (Right result) = analyse "MyExampleBucket S3"
         result `shouldBe` expectedResult
@@ -49,13 +50,13 @@ spec = do
         (parseErrorPretty result) `shouldBe` expectedResult
 
       it "turns an arbitary number of Keywords and Words into multiple AST resources" $ do
-        let expectedResult = AST [ Resource "MyExampleBucket" S3 [], Resource "MyOtherExampleBucket" S3 [] ]
+        let expectedResult = AST [ Resource "MyExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [], Resource "MyOtherExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [] ]
 
         let (Right result) = analyse "MyExampleBucket S3 MyOtherExampleBucket S3"
         result `shouldBe` expectedResult
 
       it "returns a AST with a single resource when given a single resource with a trailing carriage return" $ do
-        let expectedResult =  AST [ Resource "MyExampleBucket" S3 [] ]
+        let expectedResult =  AST [ Resource "MyExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [] ]
           
         let (Right result) = analyse "MyExampleBucket S3\n"
         result `shouldBe` expectedResult
@@ -68,31 +69,31 @@ spec = do
         parseErrorPretty result `shouldBe` expectedResult
 
       it "returns a AST when given a single comment on the line above the exo code" $ do
-        let expectedResult =  AST [ Resource "ExampleBucket" S3 [] ]
+        let expectedResult =  AST [ Resource "ExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [] ]
 
         let (Right result) = analyse "// this is a comment\nExampleBucket S3"
         result `shouldBe` expectedResult
 
       it "returns a AST when given a single comment on the line below the exo code" $ do
-        let expectedResult =  AST [ Resource "ExampleBucket" S3 [] ]
+        let expectedResult =  AST [ Resource "ExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [] ]
 
         let (Right result) = analyse "ExampleBucket S3\n// this is a comment"
         result `shouldBe` expectedResult
 
       it "returns a AST when given a single comment on the line below the exo code with an end of line" $ do
-        let expectedResult =  AST [ Resource "ExampleBucket" S3 [] ]
+        let expectedResult =  AST [ Resource "ExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [] ]
 
         let (Right result) = analyse "ExampleBucket S3\n// this is a comment\n"
         result `shouldBe` expectedResult
 
       it "returns a AST when given two comments on the line below the exo code" $ do
-        let expectedResult =  AST [ Resource "ExampleBucket" S3 [] ]
+        let expectedResult =  AST [ Resource "ExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [] ]
 
         let (Right result) = analyse "ExampleBucket S3\n// this is a comment\n// this is a comment"
         result `shouldBe` expectedResult
 
       it "returns a AST when given two comments on the line above the exo code" $ do
-        let expectedResult =  AST [ Resource "ExampleBucket" S3 [] ]
+        let expectedResult =  AST [ Resource "ExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [] ]
 
         let (Right result) = analyse "// this is a comment\n// this is a comment\nExampleBucket S3"
         result `shouldBe` expectedResult
@@ -100,33 +101,33 @@ spec = do
     describe "properties parsing" $ do
       describe "no properties" $ do
         it "parses property of {} correctly to the Property type, []" $ do
-          let expectedResult = AST [ Resource "ExampleBucket" S3 [] ]
+          let expectedResult = AST [ Resource "ExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [] ]
 
           let (Right result) = analyse "ExampleBucket S3 {}"
           result `shouldBe` expectedResult
 
       describe "single property" $ do
         it "parses property of {AccessControl Private} correctly to the Property type" $ do
-          let expectedResult = AST [ Resource "ExampleBucket" S3 [ Property "AccessControl" "Private" ] ]
+          let expectedResult = AST [ Resource "ExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [ Property "AccessControl" "Private" ] ]
 
           let (Right result) = analyse "ExampleBucket S3 {AccessControl Private}"
           result `shouldBe` expectedResult
 
         it "parses property of { AccessControl Private } (with spaces) correctly to the Property type" $ do
-          let expectedResult = AST [ Resource "ExampleBucket" S3 [ Property "AccessControl" "Private" ] ]
+          let expectedResult = AST [ Resource "ExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [ Property "AccessControl" "Private" ] ]
 
           let (Right result) = analyse "ExampleBucket S3 { AccessControl Private }"
           result `shouldBe` expectedResult
 
         it "parses property of {   AccessControl Private   } (with multiple spaces) correctly to the Property type" $ do
-          let expectedResult = AST [ Resource "ExampleBucket" S3 [ Property "AccessControl" "Private" ] ]
+          let expectedResult = AST [ Resource "ExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [ Property "AccessControl" "Private" ] ]
 
           let (Right result) = analyse "ExampleBucket S3 {   AccessControl Private   }"
           result `shouldBe` expectedResult
 
       describe "multiple properties" $ do
         it "parses property of {AccessControl Private,AvailabilityZone Ireland} correctly to the Property type" $ do
-          let expectedResult = AST [ Resource "ExampleBucket" S3 [ Property "AccessControl" "Private", Property "AvailabilityZone" "Ireland"] ]
+          let expectedResult = AST [ Resource "ExampleBucket" (ServiceType $ S3 "AWS::S3::Bucket" Nothing) [ Property "AccessControl" "Private", Property "AvailabilityZone" "Ireland"] ]
 
           let (Right result) = analyse "ExampleBucket S3 {AccessControl Private,AvailabilityZone Ireland}"
           result `shouldBe` expectedResult

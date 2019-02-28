@@ -7,7 +7,9 @@ import           Data.Aeson
 import qualified Data.HashMap.Lazy as HML
 import qualified Data.Text         as T
 import           GHC.Generics
-import           ServiceType  (ServiceType)
+import           ServiceType  (ServiceType(..))
+import ServiceTypes.S3
+
 
 data PropertyKey = AccessControl deriving (Eq, Show, Generic)
 data PropertyValue = Private deriving (Eq, Show, Generic)
@@ -29,16 +31,16 @@ type ResourceName = String
 instance ToJSON AST
 
 instance ToJSON Resource where
-  toJSON (Resource resourceName serviceType []) = 
+  toJSON (Resource resourceName (ServiceType resource) []) = 
     object 
       [ (T.pack resourceName) .= object
-        [ "Type" .= show serviceType
+        [ "Type" .= name resource
         ]
       ]
-  toJSON (Resource resourceName serviceType properties) = 
+  toJSON (Resource resourceName (ServiceType resource) properties) = 
     object 
       [ (T.pack resourceName) .= object
-        [ "Type"       .= show serviceType
+        [ "Type"       .= name resource
         , "Properties" .= (mergeAeson $ map propertyToJSON properties)
         ]
       ]

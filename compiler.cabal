@@ -1,10 +1,8 @@
-cabal-version: 1.12
-
--- This file has been generated from package.yaml by hpack version 0.31.1.
+-- This file has been generated from package.yaml by hpack version 0.28.2.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ea7f43092449b6eb9a7a08f56ff132721642f94482aa23c691ae31f4fba6cce4
+-- hash: 58afd0480fb7d55091476cfbee189609c1d38198ff33e428e5ec73c0d72d0718
 
 name:           compiler
 version:        0.1.0.0
@@ -16,9 +14,10 @@ copyright:      2019 Chris Bacon & Jacob Clark
 license:        MIT
 license-file:   LICENSE
 build-type:     Simple
+cabal-version:  >= 1.10
 extra-source-files:
-    README.md
     ChangeLog.md
+    README.md
 
 source-repository head
   type: git
@@ -34,6 +33,7 @@ library
       Parser.ParseError.Errors
       Parser.SyntacticAnalysis
       ServiceType
+      ServiceTypes.S3
   other-modules:
       Paths_compiler
   hs-source-dirs:

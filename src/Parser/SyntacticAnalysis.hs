@@ -72,16 +72,3 @@ toServiceTypeOrFail serviceType = do
   case Map.lookup serviceType keywordsMap of 
     Nothing -> fancyFailure $ singleton $ ErrorCustom PE.InvalidServiceTypeSpecified
     Just st -> return st
-
--- TODO: Add to resource parser above
-validatePropertyOrFail :: (String, String) -> Parser String
-validatePropertyOrFail (key, value) =   
-  case Map.lookup key propertiesMap of 
-    Nothing -> fancyFailure $ singleton $ ErrorCustom PE.InvalidServiceTypeSpecified
-    Just values -> if value `elem` values then return value else undefined
-
-propertiesMap :: Map.Map String [String]
-propertiesMap = Map.fromList
-  [
-    ("AccessControl", ["Private", "Public"])
-  ]
